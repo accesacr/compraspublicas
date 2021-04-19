@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  crawler:
+    build: .
+    volumes:
+      - /../docker_data:/usr/src/app
+

@@ -1,0 +1,8 @@
+docker-compose build
+docker run -i -t --name sicop_container -v $(pwd)/:/usr/src/app/ sicop_image /bin/bash
+
+
+-- Other
+scrapy startproject sicop_project
+cd sicop_project
+scrapy genspider pgs_category_list www.sicop.go.cr
