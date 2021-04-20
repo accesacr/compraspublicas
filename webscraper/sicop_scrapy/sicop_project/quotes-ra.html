@@ -1,0 +1,259 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>mer-link</title>
+<link rel="stylesheet" type="text/css" href="https://www.sicop.go.cr/portal/css/MLINK.css">
+<link rel="stylesheet" type="text/css" href="https://www.sicop.go.cr/portal/css/comn)/calendar.css">
+
+<script type="text/javascript" src="https://www.sicop.go.cr/portal/js/comn/check.js"></script>
+<script type="text/javascript" src="https://www.sicop.go.cr/portal/js/comn/utils.js"></script>
+<script type="text/javascript" src="https://www.sicop.go.cr/portal/js/comn/prototype.js"></script>
+<script type="text/javascript" src="https://www.sicop.go.cr/portal/js/comn/calendar.js"></script>
+<script type="text/javascript" src="https://www.sicop.go.cr/portal/js/comn/footer.js"></script>
+<script type="text/javascript">
+	
+	function fn_getElementByEvalName(name1, name2){
+		var obj = null;
+		try{
+			obj = eval(name1);
+			if( typeof(obj) == 'undefined'){
+				obj = eval(name2);
+			}
+		}catch(e){
+			obj = null;
+		}
+		return obj;
+	}
+	
+	function js_keyDownEnter() {
+	    if(event.keyCode ==13){
+	    	checkForm();
+	    }    
+	}
+	
+	function js_checkIndNum(){
+
+		var val= document.frm_cate.cateIdKey.value;
+		var regExp = /[^0-9]/gi;
+
+		if(regExp.test(val)){
+			document.frm_cate.cateIdKey.value="";
+			document.frm_cate.cateIdKey.focus();
+			return;
+		}
+	}
+	
+	function checkForm(){
+		var fn = document.frm_cate;
+		if(fn.cateIdKey.value=="" && fn.cateNmKey.value=="") {
+			alert("Por favor, introduzca los términos de búsqueda.");	//검색어를 입력하여 주십시오.,  Por favor, introduzca los términos de búsqueda.
+			fn.cateIdKey.select();
+			return false;
+		}else{ 
+			return true;
+		}
+	}
+	
+	function fn_select(goodsCateNum, goodsCateNm) {
+		var p_fn = 'opener.document.frm_sch';
+		tObj = fn_getElementByEvalName(p_fn+".cate_id", p_fn+".cate_id");
+		tObj.value=goodsCateNum;
+		
+		if(!(goodsCateNm=="")){
+			fn_getElementByEvalName(p_fn+".cate_nm", p_fn+".cate_nm").value=goodsCateNm;
+		}
+		tObj.focus();
+		self.close();	
+	}
+	
+	function nextCate(cate_id, cate_nm) {
+		var fn = document.frm_cate;
+		fn.action="/usemn/ra/UM_RAJ_RAQ006.jsp?page_no=1";
+		fn.cate_id.value = cate_id;
+		fn.target="_self";
+		fn.method="post"; 
+		fn.submit();
+		div_View();
+	}
+	
+	function segmentCate(cate_id) {
+		var fn = document.frm_cate;
+		fn.action="/usemn/ra/UM_RAJ_RAQ006.jsp?page_no=1";
+		fn.cateIdKey.value ="";
+		fn.cateNmKey.value ="";
+		fn.cate_id.value ="";
+		fn.target="_self";
+		fn.method="post"; 
+		fn.submit();
+		div_View();
+	}
+	
+	function searchCate() {
+		if(checkForm()) {	
+			var fn = document.frm_cate;
+			fn.action="/usemn/ra/UM_RAJ_RAQ006.jsp";
+			fn.cate_id.value = "";
+			fn.target="_self";
+			fn.method="post"; 
+			fn.submit();
+			div_View();
+		}
+	}
+
+	function div_View()	{
+		document.getElementById('loading').style.display = ("block");			
+	}
+	
+</script>
+
+</head>
+
+<body onKeyDown="javascript:js_keyDownEnter()">
+<form name="frm_cate" action="" >
+
+<div id="loading" style="z-index:1;position:absolute;width:64px;height:64px;left:210px;top:200px;display:none;background-color:#ffffff;">
+	<table border="0" cellpadding="0" cellspacing="0" width="100%" height="100%">
+		<tr>
+			<td valign="middle">
+				<img src="/usemn/images/loading_01.gif" border="0">
+			</td>
+		</tr>
+		<tr>
+			<td height="30">&nbsp;</td>
+		</tr>
+	</table>
+</div>
+
+<input type="hidden" name="frm_nm" value="frm_sch">
+<input type="hidden" name="input_nm1" value="cate_id">
+<input type="hidden" name="input_nm2" value="cate_nm">
+<input type="hidden" name="cate_id" value="">
+
+<!-- Body area Start -->
+<div class="pop_search">
+    <span class="top_logo"><img src="/usemn/images/logo_03.gif" alt=""></span>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+            <td width="19"></td>        
+            <td align="left">
+                <div id="s_pop_message">    
+                    <h3 class="p_search_pt"><img src="/usemn/images/title_04.gif" alt=""> Búsqueda de UNSPSC</h3>
+                </div>          
+                <table class="ctable" cellspacing="0" cellpadding="0" width="100%" style="margin-bottom:5px; clear:both;">
+                    <tr>
+                        <th colspan="2" class="tht"></th>
+                    </tr>
+                    <tr> 
+                        <th width="25%" class="cthc">Código de Clasificación de Bien/Servicio</th> <!-- 물품분류번호,Código de clasificación -->
+                        <td width="75%" class="tdl2"><label>
+                            <input type="text" id="cateIdKey" name="cateIdKey" size="8" onblur="js_checkIndNum();" maxlength="8" value="">
+                        </label></td>
+                    </tr>
+                    <tr><th colspan="2" class="thl"></th></tr>      
+                    <tr>
+                        <th width="25%" class="cthc">Nombre de Clasificación de Bien/Servicio</th> <!-- 물품분류명,Clasificación -->
+                        <td width="75%" class="tdl2"><label>
+                            <input type="text" id="cateNmKey" name="cateNmKey" size="20" value="">
+                        </label></td>
+                    </tr>    
+                    <tr><th colspan="2" class="thb"></th></tr>              
+                </table>      
+                <div id="Btn_gray03">
+                    <a href="#" onclick="searchCate(); return false;"><em>Consultar</em></a>
+                </div>
+
+                <p style="padding-top:25px; padding-bottom:5px;"></p>
+                        
+			
+	            <table width="100%" border="0" cellspacing="0" cellpadding="0">   
+					<tr class="ttitle">
+						<td class="cthc"><strong>Clasificacion : </strong><a href="#" onclick="segmentCate(); return false;">Root</a></td>
+					</tr>
+			
+				</table>
+				
+				<p style="padding-top:5px; padding-bottom:5px;"></p>
+				
+				<!-- search result list -->	
+				<table width="100%" border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<th class="tht"></th>
+					</tr>               
+	
+					<tr class="trow">
+						<td class="tdl"><a href="#" onclick="nextCate('10', 'Material, Accesorios y Suministros de Plantas y Animales Vivos'); return false;">&nbsp;[&nbsp;10&nbsp;]&nbsp;&nbsp;Material, Accesorios y Suministros de Plantas y Animales Vivos</a></td>
+					</tr>
+	
+					<tr class="trow">
+						<td class="tdl"><a href="#" onclick="nextCate('11', 'Materiales de Minerales y Tejidos y de Plantas y Animales no Comestibles'); return false;">&nbsp;[&nbsp;11&nbsp;]&nbsp;&nbsp;Materiales de Minerales y Tejidos y de Plantas y Animales no Comestibles</a></td>
+					</tr>
+	
+					<tr class="trow">
+						<td class="tdl"><a href="#" onclick="nextCate('12', 'Productos químicos incluyendo los bio-químicos y gases industriales'); return false;">&nbsp;[&nbsp;12&nbsp;]&nbsp;&nbsp;Productos químicos incluyendo los bio-químicos y gases industriales</a></td>
+					</tr>
+	
+					<tr class="trow">
+						<td class="tdl"><a href="#" onclick="nextCate('13', 'Resina y Colofonia y Caucho y Espuma y Película y Materiales Elastoméricos'); return false;">&nbsp;[&nbsp;13&nbsp;]&nbsp;&nbsp;Resina y Colofonia y Caucho y Espuma y Película y Materiales Elastoméricos</a></td>
+					</tr>
+	
+					<tr class="trow">
+						<td class="tdl"><a href="#" onclick="nextCate('14', 'Materiales y Productos de Papel'); return false;">&nbsp;[&nbsp;14&nbsp;]&nbsp;&nbsp;Materiales y Productos de Papel</a></td>
+					</tr>
+	
+					<tr class="trow">
+						<td class="tdl"><a href="#" onclick="nextCate('15', 'Combustibles, Aditivos para combustibles, Lubricantes y Materiales Anticorrosivos'); return false;">&nbsp;[&nbsp;15&nbsp;]&nbsp;&nbsp;Combustibles, Aditivos para combustibles, Lubricantes y Materiales Anticorrosivos</a></td>
+					</tr>
+	
+					<tr class="trow">
+						<td class="tdl"><a href="#" onclick="nextCate('20', 'Maquinaria y acesorios para la perforación de pozos y minería'); return false;">&nbsp;[&nbsp;20&nbsp;]&nbsp;&nbsp;Maquinaria y acesorios para la perforación de pozos y minería</a></td>
+					</tr>
+	
+					<tr class="trow">
+						<td class="tdl"><a href="#" onclick="nextCate('21', 'Maquinaria y Accesorios para Agricultura, Pesca, Silvicultura y Fauna.'); return false;">&nbsp;[&nbsp;21&nbsp;]&nbsp;&nbsp;Maquinaria y Accesorios para Agricultura, Pesca, Silvicultura y Fauna.</a></td>
+					</tr>
+	
+					<tr class="trow">
+						<td class="tdl"><a href="#" onclick="nextCate('22', 'Maquinaria y Accesorios para Construcción y Edificación'); return false;">&nbsp;[&nbsp;22&nbsp;]&nbsp;&nbsp;Maquinaria y Accesorios para Construcción y Edificación</a></td>
+					</tr>
+	
+					<tr class="trow">
+						<td class="tdl"><a href="#" onclick="nextCate('23', 'Maquinaria y Accesorios de Fabricación y Transformación Industrial'); return false;">&nbsp;[&nbsp;23&nbsp;]&nbsp;&nbsp;Maquinaria y Accesorios de Fabricación y Transformación Industrial</a></td>
+					</tr>
+				</table>
+				
+				<div id="paging"><ul>
+<li> 
+<img src="https://www.sicop.go.cr/portal/images/btn/btn_prev02_off.gif" alt="inicio">&nbsp;<img src="https://www.sicop.go.cr/portal/images/btn/btn_prev01_off.gif" alt="anterior 10">&nbsp; <span style="color:#b73f3a; font-weight:bold;">1</span>&nbsp;&nbsp; <a href='/usemn/ra/UM_RAJ_RAQ006.jsp?input_nm1=cate_id&amp;input_nm2=cate_nm&amp;cate_nm=&amp;cate_id=&amp;frm_nm=frm_sch&amp;page_no=2' title='2'>2</a>&nbsp;&nbsp; <a href='/usemn/ra/UM_RAJ_RAQ006.jsp?input_nm1=cate_id&amp;input_nm2=cate_nm&amp;cate_nm=&amp;cate_id=&amp;frm_nm=frm_sch&amp;page_no=3' title='3'>3</a>&nbsp;&nbsp; <a href='/usemn/ra/UM_RAJ_RAQ006.jsp?input_nm1=cate_id&amp;input_nm2=cate_nm&amp;cate_nm=&amp;cate_id=&amp;frm_nm=frm_sch&amp;page_no=4' title='4'>4</a>&nbsp;&nbsp; <a href='/usemn/ra/UM_RAJ_RAQ006.jsp?input_nm1=cate_id&amp;input_nm2=cate_nm&amp;cate_nm=&amp;cate_id=&amp;frm_nm=frm_sch&amp;page_no=5' title='5'>5</a>&nbsp;&nbsp; <a href='/usemn/ra/UM_RAJ_RAQ006.jsp?input_nm1=cate_id&amp;input_nm2=cate_nm&amp;cate_nm=&amp;cate_id=&amp;frm_nm=frm_sch&amp;page_no=6' title='6'>6</a>&nbsp;&nbsp;&nbsp;<img src="https://www.sicop.go.cr/portal/images/btn/btn_next01_off.gif" alt="siguiente 10">&nbsp;<img src="https://www.sicop.go.cr/portal/images/btn/btn_next02_off.gif" alt="último">    </li>
+</ul>
+</div>
+
+            </td>   
+            <td width="19"></td>
+            </tr>
+            <tr>
+            <td height="19" colspan="2" ></td>
+            </tr>
+        </table></td>
+        </tr>
+    </table>
+</div> <!-- end of pop_search -->
+</form>
+</body>
+</html>

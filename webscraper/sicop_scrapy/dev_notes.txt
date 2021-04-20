@@ -1,0 +1,42 @@
+-- Other
+scrapy startproject sicop_project
+cd sicop_project
+scrapy genspider pgs_category_list www.sicop.go.cr
+
+scrapy shell 'https://www.sicop.go.cr/usemn/ra/UM_RAJ_RAQ006.jsp?frm_nm=frm_sch&input_nm1=cate_id&input_nm2=cate_nm&cate_id=&cate_nm='
+
+ scrapy crawl pgs_category_list
+
+ scrapy crawl quotes -O quotes.json
+
+ scrapy crawl quotes -o quotes.jl
+
+
+ scrapy crawl pgs_category_list -O sicop_project/crawled_data/categories.json
+
+
+
+ ---------------
+
+
+https://www.sicop.go.cr/usemn/ra/UM_RAJ_RAQ006.jsp?frm_nm=frm_sch&input_nm1=cate_id&input_nm2=cate_nm&cate_id=&cate_nm=
+https://www.sicop.go.cr/usemn/ra/UM_RAJ_RAQ006.jsp?cate_nm=&input_nm1=cate_id&cate_id=&input_nm2=cate_nm&frm_nm=frm_sch&page_no=2
+
+https://www.sicop.go.cr/usemn/ra/UM_RAJ_RAQ006.jsp?page_no=2
+
+https://www.sicop.go.cr/usemn/ra/UM_RAJ_RAQ006.jsp?cate_nm=&input_nm1=cate_id&cate_id=&input_nm2=cate_nm&frm_nm=frm_sch&page_no=6
+
+https://www.sicop.go.cr/usemn/ra/UM_RAJ_RAQ006.jsp?input_nm1=cate_id&input_nm2=cate_nm&/usemn/ra/UM_RAJ_RAQ16.jsp?cate_nm=&cate_id=&frm_nm=frm_sch&page_no=1
+
+https://www.sicop.go.cr/usemn/ra/UM_RAJ_RAQ006.jsp?/usemn/ra/UM_RAJ_RAQ16.jsp?cate_nm=&input_nm1=cate_id&cate_id=&input_nm2=cate_nm&frm_nm=frm_sch&page_no=1
+
+https://www.sicop.go.cr/usemn/ra/UM_RAJ_RAQ006.jsp?input_nm1=cate_id&input_nm2=cate_nm&/usemn/ra/UM_RAJ_RAQ16.jsp?cate_nm=&cate_id=&frm_nm=frm_sch&page_no=1
+
+[
+'<a href="#" onclick="nextCate(\'10\', \'Material, Accesorios y Suministros de Plantas y Animales Vivos\'); return false;">\xa0[\xa010\xa0]\xa0\xa0Material, Accesorios y Suministros de Plantas y Animales Vivos</a>'
+, '<a href="#" onclick="nextCate(\'11\', \'Materiales de Minerales y Tejidos y de Plantas y Animales no Comestibles\'); return false;">\xa0[\xa011\xa0]\xa0\xa0Materiales de Minerales y Tejidos y de Plantas y Animales no Comestibles</a>'
+, '<a href="#" onclick="nextCate(\'12\', \'Productos químicos incluyendo los bio-químicos y gases industriales\'); return false;">\xa0[\xa012\xa0]\xa0\xa0Productos químicos incluyendo los bio-químicos y gases industriales</a>'
+, '<a href="#" onclick="nextCate(\'13\', \'Resina y Colofonia y Caucho y Espuma y Película y Materiales Elastoméricos\'); return false;">\xa0[\xa013\xa0]\xa0\xa0Resina y Colofonia y Caucho y Espuma y Película y Materiales Elastoméricos</a>'
+, '<a href="#" onclick="nextCate(\'14\', \'Materiales y Productos de Papel\'); return false;">\xa0[\xa014\xa0]\xa0\xa0Materiales y Productos de Papel</a>'
+, '<a href="#" onclick="nextCate(\'15\', \'Combustibles, Aditivos para combustibles, Lubricantes y Materiales Anticorrosivos\'); return false;">\xa0[\xa015\xa0]\xa0\xa0Combustibles, Aditivos para combustibles, Lubricantes y Materiales Anticorrosivos</a>'
+, '<a href="#" onclick="nextCate(\'20\', \'Maquinaria y acesorios para la perforación de pozos y minería\'); return false;">\xa0[\xa020\xa0]\xa0\xa0Maquinaria y acesorios para la perforación de pozos y minería</a>', '<a href="#" onclick="nextCate(\'21\', \'Maquinaria y Accesorios para Agricultura, Pesca, Silvicultura y Fauna.\'); return false;">\xa0[\xa021\xa0]\xa0\xa0Maquinaria y Accesorios para Agricultura, Pesca, Silvicultura y Fauna.</a>', '<a href="#" onclick="nextCate(\'22\', \'Maquinaria y Accesorios para Construcción y Edificación\'); return false;">\xa0[\xa022\xa0]\xa0\xa0Maquinaria y Accesorios para Construcción y Edificación</a>', '<a href="#" onclick="nextCate(\'23\', \'Maquinaria y Accesorios de Fabricación y Transformación Industrial\'); return false;">\xa0[\xa023\xa0]\xa0\xa0Maquinaria y Accesorios de Fabricación y Transformación Industrial</a>']
