@@ -3,6 +3,9 @@ import scrapy
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 
+from scrapy.http import FormRequest
+import logging
+
 #from sicop_project.items import PgsCategoryItem
 
 
@@ -34,6 +37,15 @@ class PgsCategoryListSpider(scrapy.Spider):
             'categories' : response.css('.tdl a::attr(onclick)').getall()
         }
         yield from response.follow_all(css='li a', callback=self.parse)
+
+        for raw_category in response.css('.tdl a::attr(onclick)').getall():
+            category_id = raw_category[10:].split("'", 1)[0]
+            #logging.info(category_id)
+            frmdata = {"frm_nm": "frm_sch", "cate_id": category_id}
+            url = "https://www.sicop.go.cr/usemn/ra/UM_RAJ_RAQ006.jsp?page_no=1"
+            yield FormRequest(url, callback=self.parse, formdata=frmdata, headers= {
+                "Content-Type": "application/x-www-form-urlencoded"
+            })
 """
         next_page = response.css('li a::attr(href)').get()
         if next_page is not None:
