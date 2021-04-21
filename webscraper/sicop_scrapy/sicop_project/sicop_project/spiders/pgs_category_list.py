@@ -33,13 +33,23 @@ class PgsCategoryListSpider(scrapy.Spider):
 
     #items = [[Item(PgsCategoryItem, None, '.tdl', [Field('Enlace', 'a::attr(href)', [], True), Field('Categoria', '.tdl *::text', [], True)])]]
     def parse(self, response):
-        yield {
-            'categories' : response.css('.tdl a::attr(onclick)').getall()
-        }
+#        for raw_category in response.css('.tdl a::attr(onclick)').getall():
+        category_id_list = []
+        for raw_category in response.css('.tdl a'):
+            split_category = raw_category.css('::text').get().split(' ]  ', 1)
+            category_id = split_category[0][3:]
+            category_name = split_category[1]
+            category_id_list.append(category_id)
+            yield {
+               'category_id' : category_id
+               ,'category_name' : category_name
+            }
+#        yield {
+#            'categories' : response.css('.tdl a::attr(onclick)').getall()
+#        }
         yield from response.follow_all(css='li a', callback=self.parse)
 
-        for raw_category in response.css('.tdl a::attr(onclick)').getall():
-            category_id = raw_category[10:].split("'", 1)[0]
+        for category_id in category_id_list:
             #logging.info(category_id)
             frmdata = {"frm_nm": "frm_sch", "cate_id": category_id}
             url = "https://www.sicop.go.cr/usemn/ra/UM_RAJ_RAQ006.jsp?page_no=1"
