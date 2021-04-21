@@ -1,0 +1,1937 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Listado de Expediente</title> 
+	
+	<link rel="stylesheet" type="text/css" href="https://www.sicop.go.cr/portal/css/MLINK.css">
+	<link rel="stylesheet" type="text/css" href="https://www.sicop.go.cr/portal/css/comn/calendar.css">
+	<link rel="stylesheet" type="text/css" href="https://www.sicop.go.cr/pcontdocs/css/CE.css"> 
+	<script type="text/javascript" src="https://www.sicop.go.cr/pcontdocs/js/ce.js"></script>
+	<script type="text/javascript" src="https://www.sicop.go.cr/portal/js/comn/check.js"></script>
+	<script type="text/javascript" src="https://www.sicop.go.cr/portal/js/comn/utils.js"></script>
+	<script type="text/javascript" src="https://www.sicop.go.cr/portal/js/comn/prototype.js"></script>
+	<script type="text/javascript" src="https://www.sicop.go.cr/portal/js/comn/calendar.js"></script>
+	<script type="text/javascript" src="https://www.sicop.go.cr/portal/js/comn/footer.js"></script>
+	<script type="text/javascript" src="https://www.sicop.go.cr/portal/js/comn/btnFlesh.js"></script>
+	<script type="text/javascript" src="https://www.sicop.go.cr/portal/js/comn/popup.js"></script>
+
+	<script type="text/javascript">
+	function fn_search(){
+
+         var f = document.frm_search;
+         
+       if(!ce_check_Special(f.sch_reqNo)){
+            return;
+       }
+       
+       if(!ce_check_Special(f.sch_instNo)){
+           return;
+       }
+       if(!ce_check_Special(f.sch_cartelNm)){
+           return;
+       }
+       
+       if(!ce_check_Special(f.sch_reqdocNo)){
+           return;
+       }       
+ 
+         if (check_getLength(f.sch_reqdocNo.value) > 16) {
+        	 alert("Para Número solicitud contratación de ingresar menos de 16 dígitos."); 
+ 	   		f.sch_reqdocNo.focus();
+ 	   		return;
+         }
+         
+         if (check_getLength(f.sch_reqdocNo.value) > 0 && check_getLength(f.addInst.value) == 0) {
+        	 alert("Para realizar esta consulta, debe seleccionar una Institución en el campo Identificación de la institución"); 
+ 	   		f.addInst.focus(); 
+ 	   		return;
+         }         
+         
+         if (check_getLength(f.sch_reqNo.value) > 16) {
+        	 alert("Para Número de solicitud institucional de ingresar menos de 16 dígitos."); 
+ 	   		f.sch_reqNo.focus();
+ 	   		return;
+         }         
+         
+        if (check_getLength(f.sch_instNo.value) > 50) {
+        	 alert("Para Número de procedimiento de ingresar menos de 50 dígitos."); 
+ 	   		f.sch_instNo.focus();
+ 	   		return;
+       }
+        if (check_getLength(f.sch_cartelNm.value) > 200) {
+        	 alert("Para Descripción de ingresar menos de 200 dígitos."); 
+ 	   		f.sch_cartelNm.focus();
+ 	   		return;
+       }
+
+
+ 		if( check_checkNullSpace(f.sch_cont_ymd1.value) || check_checkNullSpace(f.sch_cont_ymd2.value) ){
+ 			 
+ 			if( check_dateInputValue(f.sch_cont_ymd1, f.sch_cont_ymd2)==false ){
+ 				return;
+ 			}
+ 		
+ 			if( check_DateSeq(check_removeChar(f.sch_cont_ymd1.value,'/'), check_removeChar(f.sch_cont_ymd2.value,'/'),'Fecha de elaboración es un rango de fecha no válido. La fecha de inicio debe ser anterior a la fecha de cierre.')==false){
+ 				f.sch_cont_ymd1.focus();
+ 				return;
+ 			}
+ 		}
+
+		f.action = "https://www.sicop.go.cr/moduloPcont/pcont/ctract/es/CE_CEJ_ESQ001.jsp";
+		f.submit();
+	}
+	
+	function fn_detail(reqNo, cartel) {
+		var fn = document.frm_search;
+
+		fn.reqNo.value = reqNo;
+		fn.cartelNo.value = cartel;
+		fn.action = "https://www.sicop.go.cr/moduloPcont/pcont/ctract/es/CE_CEJ_ESQ002.jsp";
+
+		fn.submit();
+	}
+
+	function fn_instSearch(){
+		var fn = document.frm_search;
+
+		var url="https://www.sicop.go.cr/moduloPcont/pcont/co/CE_COJ_COQ036.jsp?in_inst_cd=addInst&in_inst_name=instName";
+	    window.open(url,"cateSearch","width=500,height=600, resizable=yes, scrollbars=yes");
+	    
+	    /*
+		var fn = document.frm_search;
+		popup_openWindowMsg("","500","600","cateSearch");
+	
+		fn.action="https://www.sicop.go.cr/moduloPcont/pcont/co/CE_COJ_COQ036.jsp?in_inst_cd=addInst&in_inst_name=instName";
+		fn.target="cateSearch";
+		fn.method="post"; 
+		fn.submit();	    
+	    */
+	    
+	    
+	}
+
+	function fn_clear(){
+		var fn = document.frm_search;
+		//fn.addInst.value = "";
+		//fn.instName.value = "";
+		
+
+		var inst_cd = document.getElementsByName('addInst');
+		var inst_name = document.getElementsByName('instName');
+
+		
+		inst_cd[0].setAttribute("value", "");
+		inst_name[0].setAttribute("value", "");
+		
+	}
+	
+	 function js_searchItemCode(){
+		var cateId = document.frm_search.cateId.value;
+		var url = "https://www.sicop.go.cr/moduloTcata/cata/ct/IM_CTJ_GSQ301.jsp?formName=frm_search&selgubun=all&cateIdKey="+cateId;
+		popup_openWindowMsg(url, '500', '650', 'EpSearchItemCode');
+	}
+
+	 function js_onlyNumber(obj) {
+		var src = obj.value;
+		var pattern = /^[0-9]+$/;
+		 if(!(src==''||src==null)&&!pattern.test(src)){
+			alert("Debe ingresar solamente caracteres numéricos.");
+			obj.select();
+		}
+	}	
+	</script>
+</head>
+<body>
+		<div class="sl_body">
+
+			<div class="sl_content">    
+				<div class="cont_top">
+					<h2><img src="https://www.sicop.go.cr/pcontdocs/images/title.gif" alt="">Listado de Expediente</h2> 
+				</div>
+			</div>
+
+		<form name="frm_search" method="post" action="">
+		<input type="hidden" name = "reqNo" value = "">
+		<input type="hidden" name = "cartelNo" value = "">
+		
+			<div id="search">
+				<ul><li>
+				<table class="ctable" cellspacing="0" cellpadding="0" width="780" style="margin-bottom:5px; clear:both;">
+				<col width="150">
+				<col width="240">
+				<col width="150">
+				<col width="240">
+					<tr>
+						<th colspan="4" class="tht"></th>
+					</tr>
+					<tr>
+						<th class="cthc">Número de solicitud institucional</th>
+						<td class="tdl2">
+							<input type="text" name="sch_reqNo" value='' maxlength="16" size="20" onBlur="javascript:check_Special(this);">
+						</td>
+						
+						<!--  -->
+						<th class="cthc">Número solicitud contratación</th>
+						<td class="tdl2">
+							<input type="text" name="sch_reqdocNo" value='' maxlength="16" size="20" onBlur="javascript:check_Special(this);">
+						</td>
+						<!--  -->						
+						
+					</tr>
+
+					<tr>
+						<th colspan="4" class="thl"></th>
+					</tr>		  		   
+					<tr>
+						<th class="cthc">Número de procedimiento</th>
+						<td class="tdl2" colspan="3">
+							<input type="text" name="sch_instNo" value='' size="70" maxlength="50" onBlur="javascript:check_Special(this);">
+						</td>
+					</tr>
+					<tr>
+						<th colspan="4" class="thl"></th>
+					</tr>	
+					<tr>
+						<th class="cthc">Descripción</th>
+						<td class="tdl2" colspan="3">
+							<input type="text" name="sch_cartelNm" value='' size="70" maxlength="200">
+						</td>
+					</tr>
+					<tr>
+						<th colspan="4" class="thl"></th>
+					</tr>	
+					<tr>
+						<th class="cthc" >Identificación de la institución</th>
+						<td class="tdl2">
+							<table width="99%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td>
+									<label>
+										<input type="text" class="readonly" readonly = "readonly" name="addInst" value="" size="15"/>
+									</label>
+								</td>
+								<td>
+										<div id="Btn_pop">
+									    	<a href="#" onclick="fn_instSearch();return false;"><em>Buscar</em></a>
+									    	<a href="#" onclick="fn_clear();return false;"><em>Limpiar</em></a>
+									    </div>
+								</td>
+							</tr>
+							</table>
+						</td>
+						<th class="cthc" >Nombre de la institución</th>
+						<td class="tdl2">
+							<input type="text" class="readonly" readonly = "readonly" name="instName" value="" size="35"/>
+						</td>
+					</tr>
+					<tr>
+						<th colspan="4" class="thl"></th>
+					</tr>
+					<tr>
+						<th class="cthc" >Fecha y hora de solicitud</th>
+						<td class="tdl2" colspan="3">
+							<input type="text" id="sch_cont_ymd1" name="sch_cont_ymd1" value="01/01/2016" maxlength="10" onBlur="javascript:check_dateCheck(this,'/');" onFocus="check_removeCharInput(this,'/');" style="text-align: center;" size="9">
+					<a href="javascript:Calendar_D(document.frm_search.sch_cont_ymd1);"><img src="https://www.sicop.go.cr/pcontdocs/images/cal.gif" alt="calendar" title="calendar" width="14" height="14" border="0" style="vertical-align:middle"></a>
+					&nbsp;~&nbsp;
+					<input type="text" id="sch_cont_ymd2" name="sch_cont_ymd2"  value="01/01/2021" maxlength="10" onBlur="javascript:check_dateCheck(this,'/');" onFocus="check_removeCharInput(this,'/');" style="text-align: center;" size="9">
+					<a href="javascript:Calendar_D(document.frm_search.sch_cont_ymd2);"><img src="https://www.sicop.go.cr/pcontdocs/images/cal.gif" alt="calendar" title="calendar" width="14" height="14" border="0" style="vertical-align:middle"></a>
+						</td>
+					</tr>
+					<tr>
+						<th colspan="4" class="thl"></th>
+					</tr>
+					 <tr> 
+						<th class="cthc" >Código de clasificación</th> 
+						<td class="tdl2">  
+							<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+							<td>
+								<label>
+									<input name="prodNm" type="hidden" value="">
+									<input name="prodUnitUserYn" type="hidden" value="">
+									<input name="prodUnit" type="hidden" value="">
+									<input name="cateId" type="text" class="epreadl" size="8" maxlength="8" value="1010" onblur="javascript:js_onlyNumber(this)">
+									<input name="cateIdKey" type="hidden" class="epreadl" size="8" maxlength="8" value=cateId.value >
+								</label>
+							</td>
+							<td>
+								<div id="Btn_pop04"> <a href="javascript:js_searchItemCode();"><em>Buscar</em></a></div>
+							</td>
+							 </table>
+						</td> 
+						<th class="cthc" >Código de identificación</th> 
+						<td class="tdl2">
+							<input name="prodCate" type="text" class="epreadl" size="18" maxlength="16" value="" onblur="javascript:js_onlyNumber(this)" >
+						</td>
+					 </tr>
+					<tr>
+						<th colspan="4" class="thb"></th>
+					</tr>
+				</table>
+				</li></ul>
+				<div id="table_top">
+					<div id="select_left">
+						<select name="page_size"   onmousewheel='return false;' >
+    <option  value="10">10 resultados
+    <option  value="20">20 resultados
+    <option  value="50">50 resultados
+    <option  value="100">100 resultados
+</select>
+
+					</div>
+					<div id="Btn_gray">
+						<a href="#" onclick="fn_search();return false;"><em>Consultar</em></a> 
+					</div>
+				</div>
+			 </div>
+
+
+			<div class="cl_context">
+				
+				
+				<div id="tlist">
+					<table width="780px" cellspacing="0" cellpadding="0">
+						<tr class="ttitle">
+							<th class="thc" width="4"><img src="https://www.sicop.go.cr/pcontdocs/images/list_01.gif" width="4" height="30" alt=""></th>
+							<th class="thc" width="130">Número de procedimiento</th>
+							<th class="thc" width="1"><img src="https://www.sicop.go.cr/pcontdocs/images/list_02.gif" width="1" height="30" alt=""></th>
+							<th class="thc" width="160">Nombre de la institución</th>
+							<th class="thc" width="1"><img src="https://www.sicop.go.cr/pcontdocs/images/list_02.gif" width="1" height="30" alt=""></th>
+							<th class="thc" width="288">Descripción</th>
+							<th class="thc" width="1"><img src="https://www.sicop.go.cr/pcontdocs/images/list_02.gif" width="1" height="30" alt=""></th>
+							<th class="thc" width="110">Nro. de solicitud de contratación</th>
+							<th class="thc" width="1"><img src="https://www.sicop.go.cr/pcontdocs/images/list_02.gif" width="1" height="30" alt=""></th>
+							<th class="thc" width="80">Fecha y hora de solicitud</th>
+							<th class="thc" width="4"><img src="https://www.sicop.go.cr/pcontdocs/images/list_03.gif" width="3" height="30" alt=""></th>
+						</tr>
+				
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000232-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202007001397<br>SC202009000627','20201100971');return false;">Compra de Equipamiento para Panadería y Compra de Gallinas y concentrados para modulo avícola, ambos proyectos de la Oficina de Desarrollo Territorial Ciudad Quesada</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020006900094
+								
+									<br/><p style="font-size:0.9em;color:gray;text-align:right;margin-right:3px;">(Total: 2)</p>
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">05/09/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000223-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202011000311','20201100499');return false;">Dotación de cabras para beneficiarios de proyecto Caprino de San Juan de Laurel, Oficina de Desarrollo Territorial Paso Canoas</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004300096
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">03/11/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000214-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202009001355','20201002942');return false;">COMPRA DE ALEVINES, ALIMENTO Y OTROS PRODUCTOS PARA LA OFICINA DE DESARROLLO TERRITORIAL DE TURRIALBA</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004300084
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">14/09/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000208-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202007000286','20201002597');return false;">Compra de materiales e insumo para el cultivo de cacao y compra de aves, equipo e insumo para módulos avícolas, Oficina de Desarrollo Territorial Río Claro, Inder</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004300027
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">02/07/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000192-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202008000400','20201001777');return false;">Dotación de cabras para beneficiarios de proyecto Caprino de San Juan de Laurel, Oficina de Desarrollo Territorial Paso Canoas</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004300044
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">05/08/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000181-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202007001006','20201001038');return false;">Compra de concentrado, bebederos, comederos, aves- con el objetivo de fomentar la producción de los beneficlarios de la oficina territorial de Cañas.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004400060
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">10/07/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020LN-000006-0002100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO NACIONAL DE APRENDIZAJE
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202009002467','20201000351');return false;">CONTRATACIÓN DE SERVICIO PARA EL SUMINISTRO DE PRODUCTOS ALIMENTICIOS PERECEDEROS SEGÚN DEMANDA DE CUANTÍA INESTIMADA.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020012100080
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">24/09/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020LA-000111-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202003002687<br>SC202009000631','20201000321');return false;">Construcción de Galpones para Aves y Gallinas Ponedoras para Beneficiarios de la Oficina de Desarrollo Territorial de Horquetas</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020006900097
+								
+									<br/><p style="font-size:0.9em;color:gray;text-align:right;margin-right:3px;">(Total: 2)</p>
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">06/09/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000170-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202008002035','20200902659');return false;">Compra de equipo apícola, con el objetivo de fomentar la producción de los beneficiarios de la oficina territorial de Cañas</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004400075
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">24/08/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020LA-000108-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202005001212<br>SC202008001546<br>SC202008002762','20200902342');return false;">Compra de Ganado para la Reproducción, Autoconsumo con el Objetivo de Fomentar la Producción de los Beneficiarios de las Oficinas de Desarrollo Territorial de Liberia, Cañas y Orotina</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004400032
+								
+									<br/><p style="font-size:0.9em;color:gray;text-align:right;margin-right:3px;">(Total: 3)</p>
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">15/05/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000157-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202008001560','20200901539');return false;">Compra de cerdas, con el objetivo de fomentar la producción de los beneficlarios de la oficina territorial de Liberia.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004400063
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">19/08/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000155-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202003000288<br>SC202007000059','20200901215');return false;">Compra de pollas ponedoras y concentrado, Oficina Territorial Batán, Cariari.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004400010
+								
+									<br/><p style="font-size:0.9em;color:gray;text-align:right;margin-right:3px;">(Total: 2)</p>
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">03/03/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020LA-000103-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202005001492<br>SC202007001082<br>SC202007001125<br>SC202007002409','20200901586');return false;">Compra de Ganado y Bufalas para la Reproducción, Autoconsumo y Mejoramiento Genético para Fomentar la Producción de los Beneficiarios Varias Oficinas de la RDHN</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020006900041
+								
+									<br/><p style="font-size:0.9em;color:gray;text-align:right;margin-right:3px;">(Total: 4)</p>
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">20/05/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000150-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202009001196','20200901204');return false;">Compra de pollas ponedoras, bebederos, comederos, alimentos, insumos químicos, materiales de hierro y plástico para la Oficina de Desarrollo Territorial de Cartago</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004300067
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">10/09/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000149-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202009001114','20200901209');return false;">Compra de cabras encastadas para la Oficina de Desarrollo Territorial de Cartago</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004300066
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">10/09/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020LA-000002-0013100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								CONSEJO NACIONAL DE CLUBES 4-S
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202008002742','20200900698');return false;">Compra de Prod. Pecuarios y otras especies (gallinas y cabras) para los proyectos de Clubes 4-S</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020000100005
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">31/08/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000141-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202009000076','20200900655');return false;">Compra  de cerdas.concentrado y picadoras, beneficlarios de la oficina territorial de Talamanca.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004400103
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">01/09/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020LA-000095-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202008001366<br>SC202008001368<br>SC202008001971','20200900499');return false;">Compra de Semovientes para el Fomento a la Producción para las Oficinas de Desarrollo Territorial de Turrialba y Cartago</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004300052
+								
+									<br/><p style="font-size:0.9em;color:gray;text-align:right;margin-right:3px;">(Total: 3)</p>
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">21/08/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000132-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202006001590','20200802412');return false;">HC Talamanca Compra de Gallinas y Concentrado, con el objetivo de fomentar la producción de los beneficiarios de la oficina territorial de Talamanca</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020006900048
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">16/06/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000124-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202007000263<br>SC202007000275','20200801358');return false;">Dotación de porqueriza (llave en mano) con biodigestor y pie de cría, para beneficiarios de la Oficina de Desarrollo Territorial Río Claro, Inder.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004300024
+								
+									<br/><p style="font-size:0.9em;color:gray;text-align:right;margin-right:3px;">(Total: 2)</p>
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">02/07/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020LA-000090-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202006001989<br>SC202007000832','20200801187');return false;">Compra de Ganado para la Reproducción y Autoconsumo con el Objetivo de Fomentar la Producción de los Beneficiarios de la Oficina de Desarrollo Territorial de Santa Cruz</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004400052
+								
+									<br/><p style="font-size:0.9em;color:gray;text-align:right;margin-right:3px;">(Total: 2)</p>
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">21/06/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020LA-000015-0090100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								SERVICIO FITOSANITARIO DEL ESTADO
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202003002967','20200801204');return false;">Compra controlador biológico Tamarixia Radiata</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020002300032
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">23/03/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000122-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202006000135','20200800872');return false;">Diseño e instalación de galpón para aves y compra de pollas ponedoras e insumos. Desarrollo Territorial Río Claro, Inder</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004300018
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">02/06/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000121-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202007000833','20200800921');return false;">Compra de ovejos y ovejas con el objetivo de fomentar la producción de los beneficiarios de la oficina territorial de Santa Cruz</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004400057
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">08/07/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000120-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202003000167','20200800777');return false;">Compra de cerdas, con el objetivo de fomentar la producción de los beneficiarios de la oficina territorial de Talamanca</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004400006
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">02/03/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000115-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201908000028<br>SC201908000046<br>SC201908000090','20200800335');return false;">Compra de gallinas ponedoras, bebederos y concentrados, Oficina Desarrollo Territorial San Isidro y Río Claro, Inder</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019004300058
+								
+									<br/><p style="font-size:0.9em;color:gray;text-align:right;margin-right:3px;">(Total: 3)</p>
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">01/08/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000110-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202007000834','20200701969');return false;">Compra de semovientes (ganado)- con el objetivo de fomentar la producción de los beneficlarios de la oficina territorial de Cañas.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004400058
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">08/07/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000107-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202007000282','20200702064');return false;">Compra de Semovientes reproductores (as) con el Objeto de Fomentar la Producción de los Beneficiarios de la Oficina territorial de Rio Claro</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004300026
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">02/07/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all"></td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202007001163','');return false;">Compra de Pollos, concentrados e insumos avícolas, con el objetivo de fomentar la producción de los beneficiarios de la oficina de desarrollo territorial Ciudad Quesada.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020006900054
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">13/07/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000089-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202006001983','20200700276');return false;">Compra de Semovientes para la Reproducción, Autoconsumo y Mejoramiento Genético con el Objetivo de Fomentar la Producción de los Beneficiarios de la Oficina de Desarrollo Territorial de Horquetas</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020006900050
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">20/06/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020LA-000056-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202005001314','20200601942');return false;">PC Paquera Compra de semovientes reproductores (as), con el objetivo de fomentar la producción de los beneficiarios de la oficina territorial de Paquera</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020006900037
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">18/05/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000071-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201909001773','20200600933');return false;">Compra de Cerdas de Cría y Concentrado para Beneficiarios de la Oficina de Desarrollo Territorial Ciudad Quesada.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019006900059
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">12/09/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000120-0018962008</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								Universidad Técnica Nacional
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202005001841','20200501418');return false;">L-156-2020 TILAPIAS Y ALEVINES</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020000600203
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">22/05/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000087-0018962008</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								Universidad Técnica Nacional
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202004001989','20200401761');return false;">L-101-2020 TILAPIAS Y ALEVINES</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020000600154
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">28/04/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020LA-000030-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202003000189','20200302491');return false;">Compra de semovientes  con el objetivo de fomentar la producción de los beneficiarios de la oficina territorial de Talamanca</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004400007
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">02/03/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000021-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC202003001938','20200302534');return false;">Compra de ganado, con el objetivo de fomentar la producción de los beneficiarios de la oficina territorial de Cariari.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062020004400013
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">13/03/2020</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2020CD-000012-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201909001732<br>SC202002002889<br>SC202002002967','20200301831');return false;">Compra de Semovientes con el Objetivo de Fomentar la Producción de los Beneficiarios de las Oficinas Territoriales de Upala, Puerto Viejo y Ciudad Quesada</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019006900056
+								
+									<br/><p style="font-size:0.9em;color:gray;text-align:right;margin-right:3px;">(Total: 3)</p>
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">12/09/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019CD-000160-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201909001395','20191100953');return false;">Compra de semovientes, con el objetivo de fomentar la producción de los beneficiarios de la oficina territorial de Cariari.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019004400067
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">11/09/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019LA-000098-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201908001226','20191100460');return false;">Compra de Novilla reproductoras de Doble Propósito, con el objetivo de fomentar la producción de los beneficiarios de la oficina territorial de Puerto Viejo.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019006900041
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">13/08/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019LA-000010-0006900001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								MINISTERIO DE JUSTICIA Y PAZ
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201909002678','20191002238');return false;">Adquisición de Aves de postura (gallinas)</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019000900150
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">19/09/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019LA-000094-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201908000265','20191002294');return false;">Compra de Semovientes con el Objetivo de Fomentar la Producción de los Beneficiarios de la Oficina Territorial de Santa Rosa</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019006900035
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">05/08/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019CD-000131-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201909001783<br>SC201909001784<br>SC201910000346','20191001939');return false;">Compra de cerdas preñadas y cabras para las Oficinas de Desarrollo Territorial de Puriscal y Talamanca</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019004300089
+								
+									<br/><p style="font-size:0.9em;color:gray;text-align:right;margin-right:3px;">(Total: 3)</p>
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">12/09/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019CD-000128-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201909001849<br>SC201909001977','20191001626');return false;">Compra de pollos, bebederos, comederos, guantes, cascos para módulos avícolas y apícolas de las Oficinas de Desarrollo Territorial de Cartago y Turrialba</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019004300095
+								
+									<br/><p style="font-size:0.9em;color:gray;text-align:right;margin-right:3px;">(Total: 2)</p>
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">13/09/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019CD-000125-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201907003354','20191001668');return false;">Compra de pollas y concentrado para módulo avícola con el objetivo de fomentar la producción de los beneficiarios de la oficina territorial de Liberia.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019004400046
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">30/07/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019CD-000124-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201907003304<br>SC201907003571','20191000287');return false;">Compra de pollas ponedoras, cerdas de reproducción, alimento concentrado y equipo para los Asentamientos administrados por la Oficina de Santa Cruz</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019004400043
+								
+									<br/><p style="font-size:0.9em;color:gray;text-align:right;margin-right:3px;">(Total: 2)</p>
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">29/07/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019CD-000110-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201909001776','20190901983');return false;">Compra de ganado para la Oficina de Desarrollo Territorial de Grecia</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019004300086
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">12/09/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019CD-000101-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201909000258','20190901160');return false;">COMPRA DE GANADO LECHERO Y DOBLE PROPÓSITO PARA LA OFICINA DE DESARROLLO TERRITORIAL DE CARTAGO</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019004300076
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">03/09/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019CD-000100-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201908000756','20190803036');return false;">Compra de Novillas preñadas Lecheras, con el objetivo de fomentar la producción de los beneficiarios de la oficina territorial de Turrialba.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019006900036
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">08/08/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019CD-000099-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201909001778','20190903151');return false;">Compra de Aves y concentrado, el objetivo de fomentar la producción de los beneficiarios de la oficina territorial de Paquera.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019006900062
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">12/09/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019CD-000095-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201907003661','20190903076');return false;">Compra de semovientes con el objetivo de fomentar la producción de los beneficiarios de la Oficina Territorial de Liberia</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019004400052
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">31/07/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019CD-000114-0090100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								SERVICIO FITOSANITARIO DEL ESTADO
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201909002195','20190903070');return false;">Compra controlador tamarixia radiata para distribución a nivel nacional.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019002300051
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">17/09/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019CD-000103-0090100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								SERVICIO FITOSANITARIO DEL ESTADO
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201908001040','20190900634');return false;">Compra controlador tamarixia radiata para distribución a nivel nacional</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019002300048
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">12/08/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019CD-000070-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201908000769','20190803154');return false;">Compra de Insumos, Aves, Concentrados, Equipo para proyecto avícola   con el objetivo de fomentar la producción de los beneficiarios de la oficina territorial de Turrialba.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019006900037
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">08/08/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019LA-000055-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201907000450','20190801784');return false;">Compra de Semovientes con el objetivo de fomentar la producción de los beneficiarios de la oficina territorial de Cañas.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019004400021
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">03/07/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019CD-000047-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201907003232<br>SC201907003257','20190800145');return false;">Servicio de instalación de galpón para aves, compra de codorniz japonesa, pollas ponedoras, comederos, bebederos y alimentos para aves</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019004300045
+								
+									<br/><p style="font-size:0.9em;color:gray;text-align:right;margin-right:3px;">(Total: 2)</p>
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">29/07/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019LA-000050-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201907000876','20190800281');return false;">Compra de semovientes  con el objetivo de fomentar la producción de los beneficiarios de la oficina territorial de Santa Cruz.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019004400028
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">08/07/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019LA-000007-0006900001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								MINISTERIO DE JUSTICIA Y PAZ
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201907001229','20190701910');return false;">Suscripción de contrato de entrega según demanda para la adquisición de aves de postura</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019000900075
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">10/07/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019LA-000028-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201905003295','20190700596');return false;">Compra de semovientes y equipo agrícola, con el objetivo de fomentar la producción de los beneficiarios de la oficina territorial de Upala y Paquera.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019006900006
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">28/05/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019CD-000032-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201906002774','20190701036');return false;">Compra de equipo, cerdas preñadas, semilla de banano, insumos químicos, alimento concentrado, para la Oficina de Desarrollo Territorial de Turrialba</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019004300028
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">25/06/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019LA-000009-0090100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								SERVICIO FITOSANITARIO DEL ESTADO
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201906002075','20190602169');return false;">Controlador tamarixia radiata para distribución a nivel nacional</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019002300042
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">19/06/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019CD-000018-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201906000734','20190601314');return false;">2019.06.07 CE-PTMSA Ganaderia de Doble proposito (Ganado)</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019004300017
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">07/06/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019CD-000012-0015500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO DE DESARROLLO RURAL
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201904001678','20190600639');return false;">Compra de equipo industrial, codornices, toldo y equipo de sonido, para varios módulos de los Asentamientos administrados por la Oficina de Santa Cruz</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019004400011
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">23/04/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2019LA-000007-0090100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								SERVICIO FITOSANITARIO DEL ESTADO
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201902000841','20190502502');return false;">Controlador tamarixia radiata para distribución a nivel nacional</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062019002300016
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">07/02/2019</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2018LA-000008-0013100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								CONSEJO NACIONAL DE CLUBES 4-S
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201810000669','20181101183');return false;">COMPRA DE VAQUILLAS PREÑADAS</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062018000100016
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">05/10/2018</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2018LA-000033-0090100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								SERVICIO FITOSANITARIO DEL ESTADO
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201810000921','20181002058');return false;">Controlador biológico Tamerixia Radiata.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062018002300083
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">09/10/2018</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2018CD-000077-0007800001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								MINISTERIO DE AGRICULTURA Y GANADERIA
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201809001091','20180901973');return false;">Adquisición de semoviente (novillas),  acuerdo # 75-05-2018, Decreto de Em.  Nº40027-MP. Com. Nac. Emergencia para Región de Desarrollo Agropecuario H. Norte</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062018000300068
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">13/09/2018</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2018LA-000007-0013100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								CONSEJO NACIONAL DE CLUBES 4-S
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201809000773','20180901251');return false;">COMPRA DE AVES DE POSTURA</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062018000100015
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">10/09/2018</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2018CD-000067-0007800001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								MINISTERIO DE AGRICULTURA Y GANADERIA
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201808001282','20180801644');return false;">Adquisición de semovientes, acuerdo # 75-05-2018, Decreto de Emergencia  Nº40027-MP. CNE Región Huetar Norte</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062018000300060
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">17/08/2018</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2018CD-000063-0007800001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								MINISTERIO DE AGRICULTURA Y GANADERIA
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201807002457','20180800401');return false;">Compra de semoviente (novillas), acuerdo # 75-05-2018, Decreto de Emerg. Nº40027-MP. Comisión Nacional de Emergencia para la Región de Desarrollo Agropecuario Huetar Norte</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062018000300052
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">26/07/2018</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2018CD-000017-0012600001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								PATRONATO DE CONSTRUCCIONES, INSTALACIONES Y ADQUISICION DE BIENES
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201807002673','20180800350');return false;">Adquisición de aves de postura.</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062018000300020
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">27/07/2018</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2018LA-000022-0090100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								SERVICIO FITOSANITARIO DEL ESTADO
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201805002084','20180701523');return false;">Compra de controladores biológicos para nivel nacional</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062018002300068
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">29/05/2018</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2018LA-000004-0013100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								CONSEJO NACIONAL DE CLUBES 4-S
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201807000150','20180700943');return false;">COMPRA DE AVES DE POSTURA</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062018000100009
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">03/07/2018</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2018CD-000003-0013100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								CONSEJO NACIONAL DE CLUBES 4-S
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201804001484','20180401751');return false;">COMPRA DE CERDOS Y SEMEN</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062018000100006
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">20/04/2018</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2018LA-000014-0090100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								SERVICIO FITOSANITARIO DEL ESTADO
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201802002143','20180401270');return false;">Controlador Biológico Tamerixia Radiata</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062018002300024
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">16/02/2018</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2018CD-000002-0013100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								CONSEJO NACIONAL DE CLUBES 4-S
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201803000100','20180400128');return false;">COMPRA DE CERDOS Y SEMEN</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062018000100005
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">01/03/2018</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2017CD-000129-0007800001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								MINISTERIO DE AGRICULTURA Y GANADERIA
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201711001905','20171102213');return false;">Compra de Novillas - Bagaces-2017UE-MAG-CNE-000019-175</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062017000300143
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">27/11/2017</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2017CD-000153-0010500001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								INSTITUTO NACIONAL DE INNOVACION Y TRANSFERENCIA EN TECNOLOGIA AGROPECUARIA
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201710001593','20171101569');return false;">COMPRA DE TOROS REPRODUCTORES PUROS BRAHMAN</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062017001800062
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">19/10/2017</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2017CD-000124-0007800001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								MINISTERIO DE AGRICULTURA Y GANADERIA
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201711000458','20171101261');return false;">Compra de Novillas - Referencia 2017UE-MAG-CNE-000017-17500</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062017000300134
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">06/11/2017</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2017LA-000008-0013100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								CONSEJO NACIONAL DE CLUBES 4-S
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201711000134','20171100601');return false;">COMPRA DE VAQUILLAS PREÑADAS</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062017000100039
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">01/11/2017</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all"></td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								SISTEMA NACIONAL DE AREAS DE CONSERVACION
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201711000027','');return false;">SE-Compra de alimentos para animales del Parque Ecológico</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062017001100078
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">01/11/2017</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2017LA-000006-0013100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								CONSEJO NACIONAL DE CLUBES 4-S
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201709001785','20171001740');return false;">COMPRA DE VAQUILLAS PREÑADAS</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062017000100031
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">25/09/2017</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2017CD-000021-0012600001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								PATRONATO DE CONSTRUCCIONES, INSTALACIONES Y ADQUISICION DE BIENES
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201706001421','20170700289');return false;">Compra de toro para proyecto bovino del PCIAB</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062017000300015
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">19/06/2017</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2017CD-000013-0006800001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								SISTEMA NACIONAL DE AREAS DE CONSERVACION
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201702000169<br>SC201702000790','20170501818');return false;">COMPRA ALIMENTO PARA ANIMALES</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062017000500001
+								
+									<br/><p style="font-size:0.9em;color:gray;text-align:right;margin-right:3px;">(Total: 2)</p>
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">02/02/2017</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2017LA-000002-0013100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								CONSEJO NACIONAL DE CLUBES 4-S
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201702001481','20170300519');return false;">COMPRA DE AVES DE POSTURA</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062017000100002
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">17/02/2017</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2017CD-000002-0012600001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								PATRONATO DE CONSTRUCCIONES, INSTALACIONES Y ADQUISICION DE BIENES
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201702002643','20170300167');return false;">COMPRA DE POLLAS Y POLLITAS DE POSTURA</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062017000300005
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">27/02/2017</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2016CD-000024-0013100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								CONSEJO NACIONAL DE CLUBES 4-S
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201610001204','20161100252');return false;">COMPRA DE LAS VAQUILLAS PREÑADAS</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062016000100041
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">24/10/2016</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2016CD-000029-0012600001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								PATRONATO DE CONSTRUCCIONES, INSTALACIONES Y ADQUISICION DE BIENES
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201608001295','20160901350');return false;">TORO PARA PROYECTO BOVINO</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062016000300027
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">23/08/2016</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2016CD-000015-0013100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								CONSEJO NACIONAL DE CLUBES 4-S
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201608000938','20160801064');return false;">COMPRA DE LAS VAQUILLAS PREÑADAS</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062016000100030
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">17/08/2016</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2016LA-000001-0090100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								SERVICIO FITOSANITARIO DEL ESTADO
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201606001418<br>SC201607000060','20160800267');return false;">Compra de Controladores Biologicos</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062016002300021
+								
+									<br/><p style="font-size:0.9em;color:gray;text-align:right;margin-right:3px;">(Total: 2)</p>
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">23/06/2016</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2016CD-000008-0013100001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								CONSEJO NACIONAL DE CLUBES 4-S
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201606001011','20160600957');return false;">COMPRA DE AVES DE POSTURA</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062016000100024
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">17/06/2016</td>
+							<td width="4"></td>
+				</tr>
+				
+
+						<tr class="trow">
+							<td colspan="2" class="tdc" width="134" style="word-break:break-all">2016CD-000011-0012600001</td>
+							<td colspan="2" class="tdc" width="161" style="word-break:keep-all">
+								PATRONATO DE CONSTRUCCIONES, INSTALACIONES Y ADQUISICION DE BIENES
+							</td>
+							<td colspan="2" class="tdl" width="289" style="word-break:break-all">
+								<a href="#" onclick="fn_detail('SC201604001189','20160500445');return false;">COMPRA DE POLLAS Y POLLITAS DE POSTURA</a>
+							</td>
+							<td colspan="2" class="tdc" width="125">
+								0062016000300015
+								
+							</td>
+							<td colspan="2" class="tdc" width="81">27/04/2016</td>
+							<td width="4"></td>
+				</tr>
+				
+		
+		
+					</table>
+
+	
+						<div id="paging"></div>
+
+    		
+						<div id="total"><span style="color:#b73f3a; font-weight:normal;">91</span> resultados [ <span style="color:#15669f; font-weight:normal;"> 1</span> de <span style="color:#15669f; font-weight:normal;">1</span> páginas ]&nbsp</div>
+ 
+			
+				</div>
+
+			</div>
+
+		</form>
+		</div>
+
+
+
+
+<div class="bottom_sub" style="width: 780px;">
+		<div class="menu_sub"><a href="https://www.sicop.go.cr//index.jsp" target="_top" title="P�gina principal">P&aacute;gina principal</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.sicop.go.cr/portal/html/pg/PT_PGJ_USQ001.html" title="Condiciones de Uso">Condiciones de Uso</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.sicop.go.cr/portal/html/pg/PT_PGJ_SRQ001.html" title="Gu�a de Registro de Proveedor">Gu&iacute;a de Registro de Proveedor</a></div>
+		<div class="view">
+		    <div class="b_logo"><img src="https://www.sicop.go.cr/portal/images/b_logo.gif" alt="SICOP"></div>
+		    <div class="copy"><img src="https://www.sicop.go.cr/portal/images/copyright.gif"
+		    alt="Copyright 2015 SICOP, Costa-Rica. All Rights Reserved." ></div>
+		</div>
+</div>  
+
+
+</body>
+</html>

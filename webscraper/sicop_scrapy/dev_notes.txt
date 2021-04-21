@@ -3,6 +3,8 @@ scrapy startproject sicop_project
 cd sicop_project
 scrapy genspider pgs_category_list www.sicop.go.cr
 
+scrapy genspider procedures_per_wgs_categories www.sicop.go.cr
+
 scrapy shell 'https://www.sicop.go.cr/usemn/ra/UM_RAJ_RAQ006.jsp?frm_nm=frm_sch&input_nm1=cate_id&input_nm2=cate_nm&cate_id=&cate_nm='
 
  scrapy crawl pgs_category_list
@@ -14,7 +16,18 @@ scrapy shell 'https://www.sicop.go.cr/usemn/ra/UM_RAJ_RAQ006.jsp?frm_nm=frm_sch&
 
  scrapy crawl pgs_category_list -O sicop_project/crawled_data/categories.json
 
+ scrapy crawl wgscategories_level1 -O sicop_project/crawled_data/wgscategories_level1.csv
 
+ scrapy crawl wgscategories_level1 -O sicop_project/crawled_data/wgscategories_level1.json
+
+
+ scrapy crawl procedures_per_wgscategory -O sicop_project/crawled_data/procedures_per_wgscategory.json
+
+ scrapy crawl procedures_per_wgscategory -O sicop_project/crawled_data/procedures_per_wgscategory.csv
+
+
+
+autopep8 -i archivo.py
 
  ---------------
 
