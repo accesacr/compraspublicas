@@ -17,7 +17,7 @@ class ProceduresPerWgscategorySpider(scrapy.Spider):
     #    'LOG_LEVEL': 'INFO'
     # }
     def start_requests(self):
-        category_list = [
+        category_id_list = [
             "10",
             "11",
             "12",
