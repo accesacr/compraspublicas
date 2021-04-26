@@ -16,10 +16,10 @@ class WgsCategoriesAllLevelsSpider(scrapy.Spider):
         #'https://www.sicop.go.cr/usemn/ra/UM_RAJ_RAQ006.jsp?frm_nm=frm_sch&input_nm1=cate_id&input_nm2=cate_nm&cate_id=&cate_nm='
         'https://www.sicop.go.cr/usemn/ra/UM_RAJ_RAQ006.jsp?/usemn/ra/UM_RAJ_RAQ16.jsp?cate_nm=&input_nm1=cate_id&cate_id=&input_nm2=cate_nm&frm_nm=frm_sch&page_no=1'
     ]
-    custom_settings = {
-        'LOG_FILE': '/usr/src/app/sicop_project/sicop_project/spider_logs/wgscategories_alllevels_spider.log',
-        'LOG_LEVEL': 'INFO'
-    }
+    #custom_settings = {
+    #    'LOG_FILE': '/usr/src/app/sicop_project/sicop_project/spider_logs/wgscategories_alllevels_spider.log',
+    #    'LOG_LEVEL': 'INFO'
+    #}
     """rules = [
         Rule(
             LinkExtractor(

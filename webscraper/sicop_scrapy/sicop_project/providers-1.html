@@ -1,0 +1,540 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>SICOP</title>
+<link rel="stylesheet" type="text/css" href="https://www.sicop.go.cr/portal/css/MLINK.css?v=07072017">
+<link rel="stylesheet" type="text/css" href="https://www.sicop.go.cr/portal/css/comn/calendar.css">
+<script type="text/javascript" src="https://www.sicop.go.cr/portal/js/comn/check.js"></script>
+<script type="text/javascript" src="https://www.sicop.go.cr/portal/js/comn/utils.js"></script>
+<script type="text/javascript" src="https://www.sicop.go.cr/portal/js/comn/popup.js"></script>
+<script type="text/javascript" src="https://www.sicop.go.cr/portal/js/comn/prototype.js"></script>
+<script type="text/javascript" src="https://www.sicop.go.cr/portal/js/comn/calendar.js"></script>
+<script type="text/javascript" src="https://www.sicop.go.cr/portal/js/comn/footer.js"></script>
+<script type="text/javascript" src="/usemn/js/UM.js"></script>
+
+<script type="text/javascript">
+
+     
+    function js_searchPostNo() {
+        var url="/usemn/ra/UM_RAJ_RAQ004.jsp?frm_nm=frm_sch&input_nm1=post_no&input_nm2=addr"
+               +"&post_no="+document.frm_sch.post_no.value
+               +"&addr="+document.frm_sch.addr.value;
+        popup_openWindowMsg(url,"500","550","areaSearch"); 
+    }
+
+     
+    function js_searchCateId() {
+        var url="/usemn/ra/UM_RAJ_RAQ006.jsp?frm_nm=frm_sch&input_nm1=cate_id&input_nm2=cate_nm"
+                +"&cate_id="+document.frm_sch.cate_id.value
+                +"&cate_nm="+document.frm_sch.cate_nm.value;
+        popup_openWindowScrollMsg(url, "500", "550", "cateSearch");
+    }
+    
+     
+    function js_searchLicenseCd() {
+        var url="/usemn/ra/UM_RAJ_RAQ003.jsp?frm_nm=frm_sch&input_nm1=license_cd&input_nm2=license_nm";
+        popup_openWindowMsg(url,"700","300","licenseSearch");
+    }
+    
+    
+    function js_search(){ 
+
+       if(document.frm_sch.biz_reg_no.value.length == 0 && document.frm_sch.supplier_nm.value.length == 0  && document.frm_sch.post_no.value.length == 0  && document.frm_sch.cate_id.value.length == 0  && document.frm_sch.license_cd.value.length == 0){
+        	alert('Para realizar la consulta se debe ingresar al menos un parámetro de búsqueda');
+        	return;
+        }
+                 
+        document.frm_sch.query_fl.value = "Y";
+        document.frm_sch.target="_self"; 
+        document.frm_sch.method="post"; 
+        document.frm_sch.action="/usemn/co/UM_COJ_CIQ003.jsp";
+        document.frm_sch.submit(); 
+        return; 
+    } 
+
+    function js_view_supplier(biz_reg_no){
+        document.frm_co.biz_reg_no.value = biz_reg_no;
+        document.frm_co.target = "_self"
+        document.frm_co.method = "post";
+        document.frm_co.action = "/usemn/co/UM_COJ_CIQ004.jsp";
+        document.frm_co.submit();
+        return;
+    }
+
+    function js_deleteCheck( arg1, arg2 ) {
+    	if(arg1 != null && arg2 != null)
+	    arg1.value="";
+	    arg2.value="";
+    }
+    
+ 	function js_toExcel(ext) {
+ 		document.frm_sch.method	= "post";		
+ 		document.frm_sch.action = "https://www.sicop.go.cr/usemn/in/UmDescargUsuarioDatosAbiertos.jsp?file_ext="+ext; 
+ 		document.frm_sch.submit();
+	}
+ 	
+ 	function js_csv() {
+ 		document.frm_sch.cmd.value = "csv"
+ 		document.frm_sch.method	= "post";		
+ 		document.frm_sch.action = "https://www.sicop.go.cr//servlet/usemn/in/UmDatosAbiertoProvedorController"; 
+ 		document.frm_sch.submit();
+	}
+        
+</script>
+</head>
+<body>
+
+<!-- Body area Start -->
+<div class="sl_body">
+<form name="frm_sch" method="post" action="">
+<input type="hidden" name="query_fl" value="Y">
+<input type="hidden" name="cmd" value="">
+
+    <!-- Center area Start -->
+    <div class="sl_content">    
+        <div class="cont_top">
+            <h2><img src="/usemn/images/title.gif" alt="">Información Detallada del Proveedor</h2></div>
+    </div>
+
+    <!-- sof search -->     
+    <div id="search">    
+        <table class="ctable" cellspacing="0" cellpadding="0" width="780px" style="margin-bottom:5px; clear:both;">
+	        <tr>
+	            <th colspan="4" class="tht"></th>
+	        </tr>
+            <tr>
+                <th width="150" class="cthc">Clasificación de Objeto</th> 
+                <td width="240" class="tdl2">
+                    <select class="read" name="biz_cl">
+                        <option value="">Todo</option>
+                        <option  value="1__" >Bien</option>
+                        <option  value="_1_" >Obra</option>
+                        <option  value="__1" >Servicio</option>
+                    </select>  
+                </td>
+                <th width="150" class="cthc">Cédula de Identificación</th> 
+                <td width="240" class="tdl2">
+                    <input type="text" name="biz_reg_no" size="12" maxlength="12" value="">
+                </td>
+            </tr>
+            <tr><th colspan="4" class="thl"></th></tr>      
+            <tr>
+                <th width="150" class="cthc">Nombre del Proveedor</th> 
+                <td width="240" class="tdl2">
+                    <input type="text"   name="supplier_nm" size="30" maxlength="200" value="">
+                </td>
+                <th width="150" class="cthc">Código Postal</th> 
+                <td width="240" class="tdl2">
+                    <input type="text" class="input02" readonly="readonly" size="8" id="post_no" name="post_no" value="" > 
+                    <div class="Btn_pop04">
+                        <a href="javascript:js_searchPostNo();"><em>Buscar</em></a>
+                    </div>
+					<div class="Btn_pop04">
+                        <a href="javascript:js_deleteCheck(document.frm_sch.post_no, document.frm_sch.addr);"><em>Limpiar</em></a>
+                    </div> 
+                    <input type="text" class="input02" readonly="readonly" id="addr" name="addr" size="30" value="">
+                </td>
+            </tr>                       
+            <tr><th colspan="4" class="thl"></th></tr>  
+            <tr>
+                <th width="150" class="cthc">Código UNSPSC de Bien/Servicio</th> 
+                <td width="240" class="tdl2">
+                    <input type="text" class="input02" readonly="readonly" name="cate_id" size="8" value="10101599">
+                    <div class="Btn_pop04">
+                        <a href="javascript:js_searchCateId();"><em>Buscar</em></a>
+                    </div>
+                    <div class="Btn_pop04">
+                        <a href="javascript:js_deleteCheck(document.frm_sch.cate_id, document.frm_sch.cate_nm);"><em>Limpiar</em></a>
+                    </div>  
+                    <input type="text" class="input02" readonly="readonly" name="cate_nm" size="30" value="10101599">
+                </td>
+                <th width="150" class="cthc">Código del Tipo de Negocio</th> 
+                <td width="240" class="tdl2">
+                    <input type="text" class="input02" readonly="readonly"  size="10" name="license_cd" value="">
+                    <div class="Btn_pop04">
+                        <a href="javascript:js_searchLicenseCd();"><em>Buscar</em></a>
+                    </div>
+                     <div class="Btn_pop04">
+                        <a href="javascript:js_deleteCheck(document.frm_sch.license_cd, document.frm_sch.license_nm);"><em>Limpiar</em></a>
+                    </div>    
+                    <input type="text" class="input02" readonly="readonly" name="license_nm" size="30" value="">
+                </td>
+            </tr>
+            <tr><th colspan="4" class="thl"></th></tr>          
+            <tr><th colspan="4" class="thb"></th></tr>              
+        </table>       
+        <div id="table_top">     
+            <div id="select_left">
+                <select name="page_size">
+    <option  value="10">10 resultados
+    <option  value="20">20 resultados
+    <option  value="50">50 resultados
+    <option  value="100">100 resultados
+</select>
+            </div>
+            <div id="Btn_gray">
+                <a href="javascript:js_search();"><em>Consultar</em></a>
+            </div>
+        </div>    
+    </div>
+    
+    <div class="cl_context">        
+        <div id="tlist">
+            <table width="780" cellpadding="0" cellspacing="0">
+                <tr class="ttitle">         
+                    <th class="thc" width="4"><img src="/usemn/images/list_01.gif" width="4" height="30" alt=""></th> 
+                    <th class="thc" width="150" >Cédula de Identificación</th>  
+                    <th class="thc" width="1"><img src="/usemn/images/list_02.gif" width="1" height="30" alt=""></th> 
+                    <th class="thc" width="290">Nombre del Proveedor</th> 
+                    <th class="thc" width="1"><img src="/usemn/images/list_02.gif" width="1" height="30" alt=""></th> 
+                    <th class="thc" width="330">Dirección</th>                    
+                    <th class="thc" width="4"><img src="/usemn/images/list_01.gif" width="4" height="30" alt=""></th> 
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('0106500154')">0106500154</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">FROYLAN NARANJO MONGE</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[10501]   150 METROS SUR ESTE DEL ESTADIO MUNICIPAL SAN MARCOS DE TARRAZU San Marcos, Tarrazu, San Jose</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('0109830872')">0109830872</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">JULIO ANTONIO TULLOCKS ABARCA</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[10111]   Urbanizacion MonteCarlo San Sebastian, San Jose, San Jose</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('0110300556')">0110300556</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">OSCAR MARIO GUTIERREZ SEQUEIRA</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[21402]   800 metros oeste super Caño Negro Caño Negro, Los Chiles, Alajuela</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('0110360458')">0110360458</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">HECTOR GERARDO ROJAS HIDALGO</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[41003]   Rio Frio, Finca Cuatro , 100 norte y 250 oeste de la plaza de futbol Horquetas, Sarapiqui, Heredia</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('0111460543')">0111460543</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">ADRIAN ARAYA JIMENEZ</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[40102]   100 MTS OESTE PALI MERCEDES SUR CASA 71 RESID VILLAS DEL BOULEVAR Mercedes, Heredia, Heredia</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('0113150951')">0113150951</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">KARLA DANIELA SAENZ VALVERDE</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[11501]   Mall San pedro San Pedro, Montes de Oca, San Jose</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('0113700064')">0113700064</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">EVELYN KARINA MOLINA GUILLEN</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[11801]   La empresa cerro operaciones Curridabat, Curridabat, San Jose</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('0202750074')">0202750074</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">FRANCISCO ROBERTO CORRALES GONZALEZ</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[11903]   200 metros sur de la Gasolinera El Joron Daniel Flores, Perez Zeledon, San Jose</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('0203310058')">0203310058</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">LUIS ELADIO VILLALOBOS MORALES</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[21404]   frente a la escuela San Humberto San Jorge, Los Chiles, Alajuela</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('0203720936')">0203720936</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">SERGIO ENRIQUE ZAPATA CAMACHO</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[21002]   2 KM ESTE DEL CRUCE DE MUELLE Florencia, San Carlos, Alajuela</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('0204300602')">0204300602</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">EDUARDO ENRIQUE CALVO ARCE</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[21004]   500 norte de la escuela de Luis Gamboa Araya Aguas Zarcas, San Carlos, Alajuela</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('0205770367')">0205770367</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">LUIS GERARDO VARGAS ALVARADO</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[20607]   1 KM AL NORTE DEL PUENTE RAFAEL IGLESIAS, MARGINAL IZQUIERDA EDIFICIO NEGRO Y NARANJA Rosario, Naranjo, Alajuela</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('0206790933')">0206790933</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">DONATO ALPIZAR SANTAMARIA</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[21013]   1.5 KM NORTE DEL SERVICENTRO SANTA ROSA DE POCOSOL Pocosol, San Carlos, Alajuela</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('0302780881')">0302780881</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">MARIO FRANCISCO GRANADOS MASIS</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[30701]   400 metros norte y 100 Oeste de la Iglesia San Rafael, Oreamuno, Cartago</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('0502980062')">0502980062</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">OLGER JOSE VILLALOBOS BADILLA</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[21303]   Frente al Ebais San José de Upala San Jose (Pizote), Upala, Alajuela</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('0602440814')">0602440814</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">ALVARO EDUARDO RUIZ MURILLO</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[21301]   Canalete Upala, Upala, Alajuela</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('3101005994')">3101005994</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">HACIENDA SOLIMAR SOCIEDAD ANONIMA</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[40701]   800 METROS ESTE DE LA ESTACION DEL TREN San Antonio, Belen, Heredia</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('3101017218')">3101017218</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">LA ROCA SOCIEDAD ANONIMA</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[50603]   4 KM antes de la UTN San Miguel, Canas, Guanacaste</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('3101072204')">3101072204</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">AGROGEN DE C R  SOCIEDAD ANONIMA</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[40701]   800 metros este de la estación del tren San Antonio, Belen, Heredia</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('3101233472')">3101233472</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">PROPAK DE COSTA RICA SOCIEDAD ANONIMA</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[10109]   600 metros oeste de la Jack's Diagonal al Motel Nube Blanca Bodega N° 1 Pavas, San Jose, San Jose</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('3101247567')">3101247567</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">NUTRIMAX PECUARIA SOCIEDAD ANONIMA</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[20707]   Del Salon Comunal de La Granja 200 metros sur Granja, Palmares, Alajuela</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('3101483706')">3101483706</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">COMERCIALIZADORA HNOS B M SOCIEDAD ANONIMA</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[70601]   Guacimo Guacimo, Guacimo, Limon</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('3101513839')">3101513839</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">GRUAS PLATAFORMA ESPARZA SOCIEDAD ANONIMA</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[60201]   Nances de Esparza, contiguo Taller Murcia Espiritu Santo, Esparza, Puntarenas</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('3101598483')">3101598483</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">AGROPAG SOCIEDAD ANONIMA</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[20106]   350 Norte 25 Oeste del Bar el Diamante Tacacori San Isidro de Alajuela San Isidro, Alajuela, Alajuela</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('3101622160')">3101622160</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">AGROSOLUCIONES DEL NORTE F.E.R SOCIEDAD ANONIMA</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[21301]   del supermercado pali 50 mts oeste, ave5 calle6 Upala, Upala, Alajuela</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('3101666394')">3101666394</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">ALMACEN AGRO LOGOS COLONIA SOCIEDAD ANONIMA</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[21301]   Diagonal a la entrada del refugio silvestre Caño Negro Upala, Upala, Alajuela</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('3101747947')">3101747947</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">GANADERA RIO PLATA SOCIEDAD ANONIMA</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[21009]   La Marina Palmera, San Carlos, Alajuela</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('3101775118')">3101775118</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">SERVICIOS EMPRESARIALES ACOMO SOCIEDAD ANONIMA</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[21002]   MUELLE Florencia, San Carlos, Alajuela</td>
+                    <td class="tdc"></td>
+                </tr>
+  
+                <tr class="trow">
+                    <td class="tdc"></td>
+                    <td class="tdc"><a href="javascript:js_view_supplier('3102750677')">3102750677</a></td>
+                    <td class="tdc"></td>
+                    <td class="tdc">GRUPO FG DESARROLLOS SOCIEDAD DE RESPONSABILIDAD LIMITADA</td>
+                    <td class="tdc"></td>
+                    <td class="tdl">[60401]   50 Metros Norte de la Clínica del Seguro Social Miramar Miramar, Montes de Oro, Puntarenas</td>
+                    <td class="tdc"></td>
+                </tr>
+
+            </table>
+
+			<!-- 페이지 번호를 세팅한다., El numero de pagina se establece. -->
+			<div id="paging"></div>
+
+			<!-- 페이지 건수를 세팅한다., Para establecer el numero de paginas. -->
+			<div id="total"><span style="color:#b73f3a; font-weight:normal;">29</span> resultados [ <span style="color:#15669f; font-weight:normal;"> 1</span> de <span style="color:#15669f; font-weight:normal;">1</span> páginas ]&nbsp</div>
+            
+        </div> <!-- eof List -->
+    </div> <!-- eof cl_context -->
+    <div id="Btn_blue" >
+		<a href="#" onclick="javascript:js_toExcel('xls');return false;" title="Descargar datos (XLS)"><em class="btn_blue" id="btn_excelDownload">Descargar datos (XLS)</em></a>
+		<a href="#" onclick="javascript:js_csv();return false;" title="Descargar datos (CSV)"><em class="btn_blue" id="btn_ecxelCSVDownload">Descargar datos (CSV)</em></a>
+	</div>
+</form>
+</div>
+
+ <!--  eof sl_content -->
+<form name="frm_co" method="post" action="">
+    <input type="hidden" name="biz_reg_no">
+    <input type="hidden" name="urlHistory" value="/usemn/co/UM_COJ_CIQ003.jsp?cate_nm=10101599&amp;query_fl=Y&amp;cate_id=10101599&amp;page_size=1000000&amp;&amp;page_no=1">
+</form>
+
+<!-- footer -->
+
+
+
+<div class="bottom_sub">
+		<div class="menu_sub">
+			<a href="https://www.sicop.go.cr//index.jsp" target="_top" title="Página principal">Página principal</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.sicop.go.cr/portal/html/pg/PT_PGJ_USQ001.html" title="Condiciones de Uso">Condiciones de Uso</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.sicop.go.cr/portal/html/pg/PT_PGJ_SRQ001.html" title="Guía de Registro de Proveedor">Guía de Registro de Proveedor</a>
+		</div>
+		<div class="view">
+		    <div class="b_logo"><img src="https://www.sicop.go.cr/portal/images/b_logosicop.gif" alt="SICOP"></div>
+		    <div class="copy"><img src="https://www.sicop.go.cr/portal/images/copyrightsicop.gif"
+		    alt="Copyright 2015 SICOP, Costa-Rica. All Rights Reserved." ></div>
+		</div>
+</div>
+
+    
+</body>
+</html>
+
+    

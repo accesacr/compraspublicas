@@ -1,2 +1,14 @@
+---------------------------------------------
+To build environment for the first time:
+---------------------------------------------
 docker-compose build
+
+---------------------------------------------
+To run in MAC:
+---------------------------------------------
 docker run -i -t --name sicop_container -v $(pwd)/:/usr/src/app/ sicop_image /bin/bash
+
+---------------------------------------------
+To run in WINDOWS
+---------------------------------------------
+docker run -i -t --name sicop_container -v C:/Users/"Lidier Campos"/Documents/CodeRepositories/ComprasPublicas/compraspublicas/webscraper/sicop_scrapy:/usr/src/app/ sicop_image /bin/bash

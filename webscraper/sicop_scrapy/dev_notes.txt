@@ -27,9 +27,16 @@ scrapy shell 'https://www.sicop.go.cr/usemn/ra/UM_RAJ_RAQ006.jsp?frm_nm=frm_sch&
 
  scrapy crawl wgscategories_alllevels -O sicop_project/crawled_data/wgscategories_alllevels.csv
 
-
+ scrapy crawl wgscategories_level1 -O sicop_project/crawled_data/wgscategories_level1_test.csv
 
 autopep8 -i archivo.py
+
+ scrapy crawl wgscategories_alllevels -O sicop_project/crawled_data/wgscategories_alllevels_test.csv
+
+
+
+scrapy crawl providers_per_wgscategory -O sicop_project/crawled_data/providers_per_wgscategory_test.csv
+
 
  ---------------
 
