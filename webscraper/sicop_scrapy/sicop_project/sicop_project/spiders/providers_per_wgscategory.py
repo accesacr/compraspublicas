@@ -12,12 +12,12 @@ import logging
 class ProvidersPerWgscategorySpider(scrapy.Spider):
     name = 'providers_per_wgscategory'
     allowed_domains = ['www.sicop.go.cr']
-    global custom_count
-    custom_count = 0
-    # custom_settings = {
-    #    'LOG_FILE': '/usr/src/app/sicop_project/sicop_project/spider_logs/psg_category_list_spider.log',
-    #    'LOG_LEVEL': 'INFO'
-    # }
+    #global custom_count
+    #custom_count = 0
+    custom_settings = {
+        'LOG_FILE': '/usr/src/app/sicop_project/sicop_project/spider_logs/providers_per_wgscategory_spider_test.log',
+        'LOG_LEVEL': 'INFO'
+    }
     def start_requests(self):
         import csv
         category_id_list = []
@@ -59,12 +59,13 @@ class ProvidersPerWgscategorySpider(scrapy.Spider):
                 if value is None:
                     value = ''
                 values.append(value)
-            yield {
-                'category_id' : category_id
-               ,'provider_id' : values[1].strip()
-               ,'provider_name' : values[3].strip()
-               ,'provider_location' : values[5].strip()
-            }
+            if values[0].strip() != 'Los datos consultados no existen.':
+                yield {
+                    'category_id' : category_id
+                   ,'provider_id' : values[1].strip()
+                   ,'provider_name' : values[3].strip()
+                   ,'provider_location' : values[5].strip()
+                }
 """        from scrapy.shell import inspect_response
         inspect_response(response, self)
 """
