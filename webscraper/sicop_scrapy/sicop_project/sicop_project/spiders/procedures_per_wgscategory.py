@@ -13,10 +13,10 @@ class ProceduresPerWgscategorySpider(scrapy.Spider):
     name = 'procedures_per_wgscategory'
     allowed_domains = ['www.sicop.go.cr']
 
-    # custom_settings = {
-    #    'LOG_FILE': '/usr/src/app/sicop_project/sicop_project/spider_logs/psg_category_list_spider.log',
-    #    'LOG_LEVEL': 'INFO'
-    # }
+    custom_settings = {
+        'LOG_FILE': '/usr/src/app/sicop_project/sicop_project/spider_logs/procedures_per_wgscategory_level4_spider.log',
+        'LOG_LEVEL': 'INFO'
+     }
     def start_requests(self):
         import csv
         category_id_list = []

@@ -15,7 +15,7 @@ class ProvidersPerWgscategorySpider(scrapy.Spider):
     #global custom_count
     #custom_count = 0
     custom_settings = {
-        'LOG_FILE': '/usr/src/app/sicop_project/sicop_project/spider_logs/providers_per_wgscategory_spider_test.log',
+        'LOG_FILE': '/usr/src/app/sicop_project/sicop_project/spider_logs/providers_per_wgscategory_level4_spider.log',
         'LOG_LEVEL': 'INFO'
     }
     def start_requests(self):

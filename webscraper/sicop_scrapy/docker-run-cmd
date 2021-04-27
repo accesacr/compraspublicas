@@ -7,7 +7,7 @@ docker-compose build
 To run in MAC:
 ---------------------------------------------
 docker run -i -t --name sicop_container -v $(pwd)/:/usr/src/app/ sicop_image /bin/bash
-
+docker exec -i -t sicop_container /bin/bash
 ---------------------------------------------
 To run in WINDOWS
 ---------------------------------------------
