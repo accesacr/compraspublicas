@@ -13,10 +13,10 @@ class ProceduresPerWgscategorySpider(scrapy.Spider):
     name = 'procedures_per_wgscategory'
     allowed_domains = ['www.sicop.go.cr']
 
-    custom_settings = {
-        'LOG_FILE': '/usr/src/app/sicop_project/sicop_project/spider_logs/procedures_per_wgscategory_level4_spider.log',
-        'LOG_LEVEL': 'INFO'
-     }
+    #custom_settings = {
+    #    'LOG_FILE': '/usr/src/app/sicop_project/sicop_project/spider_logs/procedures_per_wgscategory_level4_spider.log',
+    #    'LOG_LEVEL': 'INFO'
+    # }
     def start_requests(self):
         import csv
         category_id_list = []
@@ -38,7 +38,8 @@ class ProceduresPerWgscategorySpider(scrapy.Spider):
             })
 
     def parse(self, response):
-        category_id = response.css('input[name="cateId"]::attr(value)').get()
+        #category_id = response.css('input[name="cateId"]::attr(value)').get()
+        category_id = response.request.body.decode(encoding="utf-8").split("cateId=",1)[1].split("&",1)[0]
         for row in response.css('.trow'):
             #columns = row.css('td::text').getall()
             values = []
@@ -55,7 +56,7 @@ class ProceduresPerWgscategorySpider(scrapy.Spider):
                    , 'num_contract_request': values[3].strip()
                    , 'request_date_time': values[4].strip()
                 }
-
+"""
             # logging.info(values[0].strip())
 
 

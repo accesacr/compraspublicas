@@ -50,7 +50,8 @@ class ProvidersPerWgscategorySpider(scrapy.Spider):
             })
 
     def parse(self, response):
-        category_id = response.css('input[name="cate_id"]::attr(value)').get()
+        #category_id = response.css('input[name="cate_id"]::attr(value)').get()
+        category_id = response.request.body.decode(encoding="utf-8").split("cateId=",1)[1].split("&",1)[0]
         for row in response.css('.trow'):
             #columns = row.css('td::text').getall()
             values = []
