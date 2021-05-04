@@ -86,3 +86,37 @@
 2021-04-27 04:00:42 [scrapy.extensions.logstats] INFO: Crawled 23118 pages (at 465 pages/min), scraped 101429 items (at 5 items/min)
 2021-04-27 04:01:42 [scrapy.extensions.logstats] INFO: Crawled 23478 pages (at 360 pages/min), scraped 101712 items (at 283 items/min)
 2021-04-27 04:02:42 [scrapy.extensions.logstats] INFO: Crawled 23889 pages (at 411 pages/min), scraped 101824 items (at 112 items/min)
+2021-04-28 04:12:10 [scrapy.extensions.telnet] INFO: Telnet Password: 2f90b5cd78956b68
+2021-04-28 04:12:10 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.feedexport.FeedExporter',
+ 'scrapy.extensions.logstats.LogStats',
+ 'scrapy.extensions.throttle.AutoThrottle']
+2021-04-28 04:12:10 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2021-04-28 04:12:10 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2021-04-28 04:12:10 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2021-04-28 04:12:10 [scrapy.core.engine] INFO: Spider opened
+2021-04-28 04:12:10 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2021-04-28 04:12:10 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2021-04-28 04:12:17 [scrapy.crawler] INFO: Received SIGINT, shutting down gracefully. Send again to force 
+2021-04-28 04:12:17 [scrapy.core.engine] INFO: Closing spider (shutdown)
+2021-04-28 04:12:19 [scrapy.crawler] INFO: Received SIGINT twice, forcing unclean shutdown
