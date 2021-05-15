@@ -56,7 +56,7 @@ class ProceduresPerWgscategorySpider(scrapy.Spider):
                    , 'num_contract_request': values[3].strip()
                    , 'request_date_time': values[4].strip()
                 }
-"""
+
             # logging.info(values[0].strip())
 
 
