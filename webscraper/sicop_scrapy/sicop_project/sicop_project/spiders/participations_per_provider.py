@@ -14,14 +14,14 @@ class ParticipationsPerProviderSpider(scrapy.Spider):
     allowed_domains = ['www.sicop.go.cr']
     #global custom_count
     #custom_count = 0
-    #   custom_settings = {
-    #    'LOG_FILE': '/usr/src/app/sicop_project/sicop_project/spider_logs/participations_per_provider_spider.log',
-    #    'LOG_LEVEL': 'INFO'
-    #}
+    custom_settings = {
+        'LOG_FILE': '/usr/src/app/sicop_project/sicop_project/spider_logs/participations_per_provider_spider.log',
+        'LOG_LEVEL': 'INFO'
+    }
     def start_requests(self):
         import csv
         provider_id_list = []
-        with open('/usr/src/app/sicop_project/sicop_project/other_data/all_providers_onlyid_noheaders.csv','rt', encoding='utf-16') as csvfile: 
+        with open('/usr/src/app/sicop_project/sicop_project/other_data/all_providers_onlyid_noheaders.csv','rt', encoding='utf-8') as csvfile: 
             reader = csv.reader(csvfile, delimiter=',', quotechar='"') 
             for row in reader:
                 #print(', '.join(row))
