@@ -36,7 +36,9 @@ scrapy crawl providers_per_wgscategory -O sicop_project/crawled_data/providers_p
 
 scrapy crawl procedures_per_wgscategory -O sicop_project/crawled_data/procedures_per_wgscategory_level4.csv
 
-scrapy crawl participations_per_provider -O sicop_project/crawled_data/participations_per_provider.csv
+scrapy crawl participations_per_provider -O sicop_project/crawled_data/participations_per_provider_test.csv
+
+scrapy crawl procedures_expedients -O sicop_project/crawled_data/procedures_expedients_test.csv
  ---------------
 
 
