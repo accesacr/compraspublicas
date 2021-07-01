@@ -14,20 +14,20 @@ class ProceduresExpedients(scrapy.Spider):
     allowed_domains = ['www.sicop.go.cr']
     #global custom_count
     #custom_count = 0
-    #custom_settings = {
-    #    'LOG_FILE': '/usr/src/app/sicop_project/sicop_project/spider_logs/procedures_expedients_spider_test.log',
-    #    'LOG_LEVEL': 'INFO'
-    #}
+    custom_settings = {
+        'LOG_FILE': '/usr/src/app/sicop_project/sicop_project/spider_logs/procedures_expedients_spider_test.log',
+        'LOG_LEVEL': 'INFO'
+    }
     def start_requests(self):
         import csv
         procedure_id_list = []
-        #with open('/usr/src/app/sicop_project/sicop_project/other_data/all_procedures_onlyid_noheaders.csv','rt', encoding='utf-8') as csvfile: 
-        #    reader = csv.reader(csvfile, delimiter=',', quotechar='"') 
-        #    for row in reader:
+        with open('/usr/src/app/sicop_project/sicop_project/other_data/all_procedures_onlyid_noheaders.csv','rt', encoding='utf-8') as csvfile: 
+            reader = csv.reader(csvfile, delimiter=',', quotechar='"') 
+            for row in reader:
                 #print(', '.join(row))
                 #logging.info(row[0])
-        #        provider_id_list.append(row[0])
-        procedure_id_list.append('2020CD-000001-0007300001')
+                procedure_id_list.append(row[0])
+        #procedure_id_list.append('2020CD-000001-0007300001')
         for procedure_id in procedure_id_list:
             # logging.info(category_id)
             frmdata = {
@@ -46,14 +46,14 @@ class ProceduresExpedients(scrapy.Spider):
                 response_onclick_attribute = response.css('tr.trow')[0].css('td')[2].css('a::attr(onclick)').getall()[0];
                 response_onclick_attribute_parsing = response.css('tr.trow')[0].css('td')[2].css('a::attr(onclick)').getall()[0].replace("fn_detail('","", 1).replace("');return false;","",1).split("','",1)
                 yield {
-                    'procedure_num' :'|'.join(response.css('tr.trow')[0].css('td')[0].css('::text').getall()).strip()
-                    ,'institution_name' : '|'.join(response.css('tr.trow')[0].css('td')[1].css('::text').getall()).strip()
-                    ,'description' : '|'.join(response.css('tr.trow')[0].css('td')[2].css('::text').getall()).strip()
-                    ,'contract_request_num' : '|'.join(response.css('tr.trow')[0].css('td')[3].css('::text').getall()).strip()
-                    ,'request_datetime' : '|'.join(response.css('tr.trow')[0].css('td')[4].css('::text').getall()).strip()
-                    ,'response_onclick_attribute' : response_onclick_attribute
-                    ,'parsed_req_num' : response_onclick_attribute_parsing[0]
-                    ,'parsed_cartel_num' : response_onclick_attribute_parsing[1]
+                    'procedure_num' :'|'.join(response.css('tr.trow')[0].css('td')[0].css('::text').getall()).strip().replace('\r\n', '').replace('\n', '').replace('\t', '')
+                    ,'institution_name' : '|'.join(response.css('tr.trow')[0].css('td')[1].css('::text').getall()).strip().replace('\r\n', '').replace('\n', '').replace('\t', '')
+                    ,'description' : ('|'.join(response.css('tr.trow')[0].css('td')[2].css('::text').getall()).strip()).replace('\r\n', '').replace('\n', '').replace('\t', '')
+                    ,'contract_request_num' : '|'.join(response.css('tr.trow')[0].css('td')[3].css('::text').getall()).strip().replace('\r\n', '').replace('\n', '').replace('\t', '')
+                    ,'request_datetime' : '|'.join(response.css('tr.trow')[0].css('td')[4].css('::text').getall()).strip().replace('\r\n', '').replace('\n', '').replace('\t', '')
+                    ,'response_onclick_attribute' : response_onclick_attribute.replace('\r\n', '').replace('\n', '').replace('\t', '')
+                    ,'parsed_num_solicitud_contratacion' : response_onclick_attribute_parsing[0].replace('\r\n', '').replace('\n', '').replace('\t', '')
+                    ,'parsed_num_cartel' : response_onclick_attribute_parsing[1].replace('\r\n', '').replace('\n', '').replace('\t', '')
                 }
 """
         if values[0].strip().find('Los datos consultados') == -1:
