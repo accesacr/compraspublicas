@@ -54,18 +54,22 @@ class ProceduresExpedientsDetailsContracts(scrapy.Spider):
                 has_data = rows[0].get().find('Los datos consultados no existen') == -1;
                 if has_data:
                     for row in rows:
-                        columns = row.css('td')
-                        row_onclick_attr = columns[1].css('a::attr(onclick)').getall()[0];
+                        columns = row.css('td');
+                        row_onclick_attr_str = ''
+                        row_onclick_attr = columns[1].css('a::attr(onclick)').getall();
+                        if len(row_onclick_attr) > 0:
+                            row_onclick_attr_str = row_onclick_attr[0]
                         yield {
                             'param_sch_instNo' : param_sch_instNo
                             ,'param_reqNo' : param_reqNo
                             ,'param_cartelNo' : param_cartelNo
                             ,'num_contrato' : '|'.join(columns[0].css('::text').getall()).strip().replace('\r\n', '').replace('\n', '').replace('\t', '').replace('"', '')
-                            ,'ids_detalle_contrato' : row_onclick_attr.replace("fn_cont(", '').replace(");return false;", '').replace('"', '')
+                            ,'ids_detalle_contrato' : row_onclick_attr_str.replace("fn_cont(", '').replace(");return false;", '').replace('"', '')
                             ,'monto_contrato' : '|'.join(columns[2].css('::text').getall()).strip().replace('\r\n', '').replace('\n', '').replace('\t', '').replace('"', '')
                             ,'fecha_contrato' : '|'.join(columns[3].css('::text').getall()).strip().replace('\r\n', '').replace('\n', '').replace('\t', '').replace('"', '')
                             ,'vigencia_contrato' : '|'.join(columns[4].css('::text').getall()).strip().replace('\r\n', '').replace('\n', '').replace('\t', '').replace('"', '')
                             ,'estado_contrato' : '|'.join(columns[5].css('::text').getall()).strip().replace('\r\n', '').replace('\n', '').replace('\t', '').replace('"', '')
+                            ,'onclick_detalle_contrato' : str(row_onclick_attr)
                             
                         }
 """     from scrapy.shell import inspect_response
