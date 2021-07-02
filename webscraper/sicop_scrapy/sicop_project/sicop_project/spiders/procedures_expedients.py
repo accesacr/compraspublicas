@@ -53,7 +53,7 @@ class ProceduresExpedients(scrapy.Spider):
                     ,'request_datetime' : '|'.join(response.css('tr.trow')[0].css('td')[4].css('::text').getall()).strip().replace('\r\n', '').replace('\n', '').replace('\t', '')
                     ,'response_onclick_attribute' : response_onclick_attribute.replace('\r\n', '').replace('\n', '').replace('\t', '')
                     ,'parsed_num_solicitud_contratacion' : response_onclick_attribute_parsing[0].replace('\r\n', '').replace('\n', '').replace('\t', '')
-                    ,'parsed_num_cartel' : response_onclick_attribute_parsing[1].replace('\r\n', '').replace('\n', '').replace('\t', '')
+                    ,'parsed_num_sicop' : response_onclick_attribute_parsing[1].replace('\r\n', '').replace('\n', '').replace('\t', '')
                 }
 """
         if values[0].strip().find('Los datos consultados') == -1:

@@ -21,8 +21,12 @@ SELECT
     ,MAX(CONVERT(DATETIME,REPLACE([opening_act_publication_date], 'T', ' ')+ ':00' , 120)) AS [max_opening_act_publication_date]
 	--,[opening_act_date]
 	,MAX(CONVERT(DATETIME,REPLACE([opening_act_date], 'T', ' ')+ ':00' , 120)) AS [max_opening_act_date]
+
+	    ,MIN(CONVERT(DATETIME,REPLACE([opening_act_publication_date], 'T', ' ')+ ':00' , 120)) AS [min_opening_act_publication_date]
+	--,[opening_act_date]
+	,MIN(CONVERT(DATETIME,REPLACE([opening_act_date], 'T', ' ')+ ':00' , 120)) AS [min_opening_act_date]
 INTO cleandata.sicop_procedure_participations_per_provider
-FROM [rawdata].[sicop_participations_per_provider]
+FROM [rawdata].[sicop_procedure_participations_per_provider]
 GROUP BY [provider_id], [procedure_num]
 
 
