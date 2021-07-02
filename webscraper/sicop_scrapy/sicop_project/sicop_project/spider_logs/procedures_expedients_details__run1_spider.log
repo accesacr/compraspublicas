@@ -1,0 +1,90 @@
+2021-07-02 03:01:12 [scrapy.extensions.telnet] INFO: Telnet Password: a7e5f10525e5e667
+2021-07-02 03:01:12 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.feedexport.FeedExporter',
+ 'scrapy.extensions.logstats.LogStats',
+ 'scrapy.extensions.throttle.AutoThrottle']
+2021-07-02 03:01:12 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2021-07-02 03:01:12 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2021-07-02 03:01:12 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2021-07-02 03:01:12 [scrapy.core.engine] INFO: Spider opened
+2021-07-02 03:01:12 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2021-07-02 03:01:12 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2021-07-02 03:02:12 [scrapy.extensions.logstats] INFO: Crawled 2040 pages (at 2040 pages/min), scraped 2085 items (at 2085 items/min)
+2021-07-02 03:03:12 [scrapy.extensions.logstats] INFO: Crawled 4783 pages (at 2743 pages/min), scraped 5119 items (at 3034 items/min)
+2021-07-02 03:04:12 [scrapy.extensions.logstats] INFO: Crawled 7538 pages (at 2755 pages/min), scraped 8126 items (at 3007 items/min)
+2021-07-02 03:05:12 [scrapy.extensions.logstats] INFO: Crawled 9926 pages (at 2388 pages/min), scraped 10727 items (at 2601 items/min)
+2021-07-02 03:06:12 [scrapy.extensions.logstats] INFO: Crawled 12338 pages (at 2412 pages/min), scraped 13264 items (at 2537 items/min)
+2021-07-02 03:07:12 [scrapy.extensions.logstats] INFO: Crawled 14926 pages (at 2588 pages/min), scraped 16329 items (at 3065 items/min)
+2021-07-02 03:08:12 [scrapy.extensions.logstats] INFO: Crawled 17602 pages (at 2676 pages/min), scraped 19363 items (at 3034 items/min)
+2021-07-02 03:09:12 [scrapy.extensions.logstats] INFO: Crawled 20179 pages (at 2577 pages/min), scraped 22130 items (at 2767 items/min)
+2021-07-02 03:10:12 [scrapy.extensions.logstats] INFO: Crawled 22409 pages (at 2230 pages/min), scraped 25860 items (at 3730 items/min)
+2021-07-02 03:11:12 [scrapy.extensions.logstats] INFO: Crawled 24674 pages (at 2265 pages/min), scraped 29436 items (at 3576 items/min)
+2021-07-02 03:12:12 [scrapy.extensions.logstats] INFO: Crawled 27271 pages (at 2597 pages/min), scraped 32075 items (at 2639 items/min)
+2021-07-02 03:13:12 [scrapy.extensions.logstats] INFO: Crawled 29825 pages (at 2554 pages/min), scraped 34961 items (at 2886 items/min)
+2021-07-02 03:14:12 [scrapy.extensions.logstats] INFO: Crawled 32406 pages (at 2581 pages/min), scraped 37847 items (at 2886 items/min)
+2021-07-02 03:15:12 [scrapy.extensions.logstats] INFO: Crawled 35001 pages (at 2595 pages/min), scraped 40715 items (at 2868 items/min)
+2021-07-02 03:16:12 [scrapy.extensions.logstats] INFO: Crawled 37664 pages (at 2663 pages/min), scraped 43652 items (at 2937 items/min)
+2021-07-02 03:17:12 [scrapy.extensions.logstats] INFO: Crawled 40356 pages (at 2692 pages/min), scraped 48282 items (at 4630 items/min)
+2021-07-02 03:18:12 [scrapy.extensions.logstats] INFO: Crawled 42605 pages (at 2249 pages/min), scraped 51436 items (at 3154 items/min)
+2021-07-02 03:19:12 [scrapy.extensions.logstats] INFO: Crawled 45326 pages (at 2721 pages/min), scraped 54169 items (at 2733 items/min)
+2021-07-02 03:20:12 [scrapy.extensions.logstats] INFO: Crawled 47960 pages (at 2634 pages/min), scraped 56994 items (at 2825 items/min)
+2021-07-02 03:21:12 [scrapy.extensions.logstats] INFO: Crawled 50475 pages (at 2515 pages/min), scraped 59781 items (at 2787 items/min)
+2021-07-02 03:22:12 [scrapy.extensions.logstats] INFO: Crawled 53152 pages (at 2677 pages/min), scraped 62692 items (at 2911 items/min)
+2021-07-02 03:23:12 [scrapy.extensions.logstats] INFO: Crawled 55809 pages (at 2657 pages/min), scraped 65702 items (at 3010 items/min)
+2021-07-02 03:24:12 [scrapy.extensions.logstats] INFO: Crawled 58360 pages (at 2551 pages/min), scraped 68475 items (at 2773 items/min)
+2021-07-02 03:25:12 [scrapy.extensions.logstats] INFO: Crawled 61015 pages (at 2655 pages/min), scraped 71378 items (at 2903 items/min)
+2021-07-02 03:26:12 [scrapy.extensions.logstats] INFO: Crawled 63779 pages (at 2764 pages/min), scraped 74757 items (at 3379 items/min)
+2021-07-02 03:27:12 [scrapy.extensions.logstats] INFO: Crawled 66337 pages (at 2558 pages/min), scraped 78915 items (at 4158 items/min)
+2021-07-02 03:28:12 [scrapy.extensions.logstats] INFO: Crawled 68907 pages (at 2570 pages/min), scraped 82012 items (at 3097 items/min)
+2021-07-02 03:29:12 [scrapy.extensions.logstats] INFO: Crawled 71242 pages (at 2335 pages/min), scraped 84572 items (at 2560 items/min)
+2021-07-02 03:30:12 [scrapy.extensions.logstats] INFO: Crawled 73853 pages (at 2611 pages/min), scraped 87480 items (at 2908 items/min)
+2021-07-02 03:31:12 [scrapy.extensions.logstats] INFO: Crawled 76542 pages (at 2689 pages/min), scraped 90448 items (at 2968 items/min)
+2021-07-02 03:32:12 [scrapy.extensions.logstats] INFO: Crawled 78829 pages (at 2287 pages/min), scraped 92916 items (at 2468 items/min)
+2021-07-02 03:33:12 [scrapy.extensions.logstats] INFO: Crawled 81486 pages (at 2657 pages/min), scraped 95867 items (at 2951 items/min)
+2021-07-02 03:34:12 [scrapy.extensions.logstats] INFO: Crawled 83425 pages (at 1939 pages/min), scraped 98001 items (at 2134 items/min)
+2021-07-02 03:35:12 [scrapy.extensions.logstats] INFO: Crawled 85914 pages (at 2489 pages/min), scraped 100797 items (at 2796 items/min)
+2021-07-02 03:36:12 [scrapy.extensions.logstats] INFO: Crawled 88350 pages (at 2436 pages/min), scraped 104720 items (at 3923 items/min)
+2021-07-02 03:36:53 [scrapy.core.engine] INFO: Closing spider (finished)
+2021-07-02 03:36:53 [scrapy.extensions.feedexport] INFO: Stored csv feed (106512 items) in: sicop_project/crawled_data/procedures_expedients_details.csv
+2021-07-02 03:36:53 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 53350466,
+ 'downloader/request_count': 89943,
+ 'downloader/request_method_count/POST': 89943,
+ 'downloader/response_bytes': 7715389317,
+ 'downloader/response_count': 89943,
+ 'downloader/response_status_count/200': 89943,
+ 'elapsed_time_seconds': 2140.525622,
+ 'feedexport/success_count/FileFeedStorage': 1,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2021, 7, 2, 3, 36, 53, 55742),
+ 'item_scraped_count': 106512,
+ 'log_count/INFO': 46,
+ 'memusage/max': 316129280,
+ 'memusage/startup': 56020992,
+ 'response_received_count': 89943,
+ 'scheduler/dequeued': 89943,
+ 'scheduler/dequeued/memory': 89943,
+ 'scheduler/enqueued': 89943,
+ 'scheduler/enqueued/memory': 89943,
+ 'start_time': datetime.datetime(2021, 7, 2, 3, 1, 12, 530120)}
+2021-07-02 03:36:53 [scrapy.core.engine] INFO: Spider closed (finished)

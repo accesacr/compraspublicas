@@ -41,7 +41,7 @@ scrapy crawl participations_per_provider -O sicop_project/crawled_data/participa
 scrapy crawl procedures_expedients -O sicop_project/crawled_data/procedures_expedients_test.csv
 
 
-scrapy crawl procedures_expedients_details -O sicop_project/crawled_data/procedures_expedients_details_test.csv
+scrapy crawl procedures_expedients_details_contracts -O sicop_project/crawled_data/procedures_expedients_details_contracts_test.csv
  ---------------
 
 

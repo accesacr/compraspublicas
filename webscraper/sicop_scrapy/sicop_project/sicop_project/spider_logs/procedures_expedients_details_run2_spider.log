@@ -1,0 +1,106 @@
+2021-07-02 04:31:17 [scrapy.extensions.telnet] INFO: Telnet Password: 55c03c9ada6a2efe
+2021-07-02 04:31:17 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.feedexport.FeedExporter',
+ 'scrapy.extensions.logstats.LogStats',
+ 'scrapy.extensions.throttle.AutoThrottle']
+2021-07-02 04:31:18 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2021-07-02 04:31:18 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2021-07-02 04:31:18 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2021-07-02 04:31:18 [scrapy.core.engine] INFO: Spider opened
+2021-07-02 04:31:18 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2021-07-02 04:31:18 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2021-07-02 04:32:18 [scrapy.extensions.logstats] INFO: Crawled 1993 pages (at 1993 pages/min), scraped 2038 items (at 2038 items/min)
+2021-07-02 04:33:18 [scrapy.extensions.logstats] INFO: Crawled 4622 pages (at 2629 pages/min), scraped 4959 items (at 2921 items/min)
+2021-07-02 04:34:18 [scrapy.extensions.logstats] INFO: Crawled 7324 pages (at 2702 pages/min), scraped 7914 items (at 2955 items/min)
+2021-07-02 04:35:18 [scrapy.extensions.logstats] INFO: Crawled 9866 pages (at 2542 pages/min), scraped 10594 items (at 2680 items/min)
+2021-07-02 04:36:18 [scrapy.extensions.logstats] INFO: Crawled 12471 pages (at 2605 pages/min), scraped 13434 items (at 2840 items/min)
+2021-07-02 04:37:18 [scrapy.extensions.logstats] INFO: Crawled 15038 pages (at 2567 pages/min), scraped 16456 items (at 3022 items/min)
+2021-07-02 04:38:18 [scrapy.extensions.logstats] INFO: Crawled 17713 pages (at 2675 pages/min), scraped 19491 items (at 3035 items/min)
+2021-07-02 04:39:18 [scrapy.extensions.logstats] INFO: Crawled 20462 pages (at 2749 pages/min), scraped 22451 items (at 2960 items/min)
+2021-07-02 04:40:18 [scrapy.extensions.logstats] INFO: Crawled 22935 pages (at 2473 pages/min), scraped 26878 items (at 4427 items/min)
+2021-07-02 04:40:59 [scrapy.core.downloader.handlers.http11] WARNING: Got data loss in https://www.sicop.go.cr/moduloPcont/pcont/ctract/es/CE_CEJ_ESQ002.jsp. If you want to process broken responses set the setting DOWNLOAD_FAIL_ON_DATALOSS = False -- This message won't be shown in further requests
+2021-07-02 04:40:59 [scrapy.core.downloader.handlers.http11] WARNING: Got data loss in https://www.sicop.go.cr/moduloPcont/pcont/ctract/es/CE_CEJ_ESQ002.jsp. If you want to process broken responses set the setting DOWNLOAD_FAIL_ON_DATALOSS = False -- This message won't be shown in further requests
+2021-07-02 04:40:59 [scrapy.core.downloader.handlers.http11] WARNING: Got data loss in https://www.sicop.go.cr/moduloPcont/pcont/ctract/es/CE_CEJ_ESQ002.jsp. If you want to process broken responses set the setting DOWNLOAD_FAIL_ON_DATALOSS = False -- This message won't be shown in further requests
+2021-07-02 04:40:59 [scrapy.core.downloader.handlers.http11] WARNING: Got data loss in https://www.sicop.go.cr/moduloPcont/pcont/ctract/es/CE_CEJ_ESQ002.jsp. If you want to process broken responses set the setting DOWNLOAD_FAIL_ON_DATALOSS = False -- This message won't be shown in further requests
+2021-07-02 04:40:59 [scrapy.core.downloader.handlers.http11] WARNING: Got data loss in https://www.sicop.go.cr/moduloPcont/pcont/ctract/es/CE_CEJ_ESQ002.jsp. If you want to process broken responses set the setting DOWNLOAD_FAIL_ON_DATALOSS = False -- This message won't be shown in further requests
+2021-07-02 04:40:59 [scrapy.core.downloader.handlers.http11] WARNING: Got data loss in https://www.sicop.go.cr/moduloPcont/pcont/ctract/es/CE_CEJ_ESQ002.jsp. If you want to process broken responses set the setting DOWNLOAD_FAIL_ON_DATALOSS = False -- This message won't be shown in further requests
+2021-07-02 04:40:59 [scrapy.core.downloader.handlers.http11] WARNING: Got data loss in https://www.sicop.go.cr/moduloPcont/pcont/ctract/es/CE_CEJ_ESQ002.jsp. If you want to process broken responses set the setting DOWNLOAD_FAIL_ON_DATALOSS = False -- This message won't be shown in further requests
+2021-07-02 04:40:59 [scrapy.core.downloader.handlers.http11] WARNING: Got data loss in https://www.sicop.go.cr/moduloPcont/pcont/ctract/es/CE_CEJ_ESQ002.jsp. If you want to process broken responses set the setting DOWNLOAD_FAIL_ON_DATALOSS = False -- This message won't be shown in further requests
+2021-07-02 04:41:18 [scrapy.extensions.logstats] INFO: Crawled 24370 pages (at 1435 pages/min), scraped 29031 items (at 2153 items/min)
+2021-07-02 04:42:18 [scrapy.extensions.logstats] INFO: Crawled 26667 pages (at 2297 pages/min), scraped 31432 items (at 2401 items/min)
+2021-07-02 04:43:18 [scrapy.extensions.logstats] INFO: Crawled 29107 pages (at 2440 pages/min), scraped 34066 items (at 2634 items/min)
+2021-07-02 04:44:18 [scrapy.extensions.logstats] INFO: Crawled 31688 pages (at 2581 pages/min), scraped 37040 items (at 2974 items/min)
+2021-07-02 04:45:18 [scrapy.extensions.logstats] INFO: Crawled 34101 pages (at 2413 pages/min), scraped 39722 items (at 2682 items/min)
+2021-07-02 04:46:18 [scrapy.extensions.logstats] INFO: Crawled 36254 pages (at 2153 pages/min), scraped 42095 items (at 2373 items/min)
+2021-07-02 04:47:18 [scrapy.extensions.logstats] INFO: Crawled 38772 pages (at 2518 pages/min), scraped 44867 items (at 2772 items/min)
+2021-07-02 04:48:18 [scrapy.extensions.logstats] INFO: Crawled 41188 pages (at 2416 pages/min), scraped 49426 items (at 4559 items/min)
+2021-07-02 04:49:18 [scrapy.extensions.logstats] INFO: Crawled 43398 pages (at 2210 pages/min), scraped 52182 items (at 2756 items/min)
+2021-07-02 04:50:18 [scrapy.extensions.logstats] INFO: Crawled 45873 pages (at 2475 pages/min), scraped 54762 items (at 2580 items/min)
+2021-07-02 04:51:18 [scrapy.extensions.logstats] INFO: Crawled 48514 pages (at 2641 pages/min), scraped 57590 items (at 2828 items/min)
+2021-07-02 04:52:18 [scrapy.extensions.logstats] INFO: Crawled 50905 pages (at 2391 pages/min), scraped 60233 items (at 2643 items/min)
+2021-07-02 04:53:18 [scrapy.extensions.logstats] INFO: Crawled 53389 pages (at 2484 pages/min), scraped 62996 items (at 2763 items/min)
+2021-07-02 04:54:18 [scrapy.extensions.logstats] INFO: Crawled 55930 pages (at 2541 pages/min), scraped 65825 items (at 2829 items/min)
+2021-07-02 04:55:18 [scrapy.extensions.logstats] INFO: Crawled 58493 pages (at 2563 pages/min), scraped 68607 items (at 2782 items/min)
+2021-07-02 04:56:18 [scrapy.extensions.logstats] INFO: Crawled 61080 pages (at 2587 pages/min), scraped 71458 items (at 2851 items/min)
+2021-07-02 04:57:18 [scrapy.extensions.logstats] INFO: Crawled 63808 pages (at 2728 pages/min), scraped 74795 items (at 3337 items/min)
+2021-07-02 04:58:18 [scrapy.extensions.logstats] INFO: Crawled 66280 pages (at 2472 pages/min), scraped 78845 items (at 4050 items/min)
+2021-07-02 04:59:18 [scrapy.extensions.logstats] INFO: Crawled 68711 pages (at 2431 pages/min), scraped 81818 items (at 2973 items/min)
+2021-07-02 05:00:18 [scrapy.extensions.logstats] INFO: Crawled 71266 pages (at 2555 pages/min), scraped 84571 items (at 2753 items/min)
+2021-07-02 05:01:18 [scrapy.extensions.logstats] INFO: Crawled 73694 pages (at 2428 pages/min), scraped 87290 items (at 2719 items/min)
+2021-07-02 05:02:18 [scrapy.extensions.logstats] INFO: Crawled 76121 pages (at 2427 pages/min), scraped 89973 items (at 2683 items/min)
+2021-07-02 05:03:18 [scrapy.extensions.logstats] INFO: Crawled 78795 pages (at 2674 pages/min), scraped 92866 items (at 2893 items/min)
+2021-07-02 05:04:18 [scrapy.extensions.logstats] INFO: Crawled 81397 pages (at 2602 pages/min), scraped 95756 items (at 2890 items/min)
+2021-07-02 05:05:18 [scrapy.extensions.logstats] INFO: Crawled 84034 pages (at 2637 pages/min), scraped 98620 items (at 2864 items/min)
+2021-07-02 05:06:18 [scrapy.extensions.logstats] INFO: Crawled 86626 pages (at 2592 pages/min), scraped 102166 items (at 3546 items/min)
+2021-07-02 05:07:18 [scrapy.extensions.logstats] INFO: Crawled 89025 pages (at 2399 pages/min), scraped 105636 items (at 3470 items/min)
+2021-07-02 05:07:38 [scrapy.core.engine] INFO: Closing spider (finished)
+2021-07-02 05:07:38 [scrapy.extensions.feedexport] INFO: Stored csv feed (106512 items) in: sicop_project/crawled_data/procedures_expedients_details_run2.csv
+2021-07-02 05:07:38 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/exception_count': 133,
+ 'downloader/exception_type_count/twisted.web._newclient.ResponseFailed': 8,
+ 'downloader/exception_type_count/twisted.web._newclient.ResponseNeverReceived': 125,
+ 'downloader/request_bytes': 53433416,
+ 'downloader/request_count': 90076,
+ 'downloader/request_method_count/POST': 90076,
+ 'downloader/response_bytes': 7715389314,
+ 'downloader/response_count': 89943,
+ 'downloader/response_status_count/200': 89943,
+ 'elapsed_time_seconds': 2180.104737,
+ 'feedexport/success_count/FileFeedStorage': 1,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2021, 7, 2, 5, 7, 38, 135544),
+ 'item_scraped_count': 106512,
+ 'log_count/INFO': 47,
+ 'log_count/WARNING': 8,
+ 'memusage/max': 300453888,
+ 'memusage/startup': 55775232,
+ 'response_received_count': 89943,
+ 'retry/count': 133,
+ 'retry/reason_count/twisted.web._newclient.ResponseFailed': 8,
+ 'retry/reason_count/twisted.web._newclient.ResponseNeverReceived': 125,
+ 'scheduler/dequeued': 90076,
+ 'scheduler/dequeued/memory': 90076,
+ 'scheduler/enqueued': 90076,
+ 'scheduler/enqueued/memory': 90076,
+ 'start_time': datetime.datetime(2021, 7, 2, 4, 31, 18, 30807)}
+2021-07-02 05:07:38 [scrapy.core.engine] INFO: Spider closed (finished)

@@ -10,10 +10,10 @@ class ProceduresExpedientsDetails(scrapy.Spider):
     allowed_domains = ['www.sicop.go.cr']
     #global custom_count
     #custom_count = 0
-    #custom_settings = {
-    #    'LOG_FILE': '/usr/src/app/sicop_project/sicop_project/spider_logs/procedures_expedients_details_spider_test.log',
-    #    'LOG_LEVEL': 'INFO'
-    #}
+    custom_settings = {
+        'LOG_FILE': '/usr/src/app/sicop_project/sicop_project/spider_logs/procedures_expedients_details_spider_test.log',
+        'LOG_LEVEL': 'INFO'
+    }
     def start_requests(self):
         import csv
         procedure_expedient_id_list = []
@@ -42,6 +42,11 @@ class ProceduresExpedientsDetails(scrapy.Spider):
             })
 
     def parse(self, response):
+        from scrapy.shell import inspect_response
+        inspect_response(response, self)
+        param_sch_instNo = response.request.body.decode(encoding="utf-8").split("sch_instNo=",1)[1].split("&",1)[0]
+        param_reqNo = response.request.body.decode(encoding="utf-8").split("reqNo=",1)[1].split("&",1)[0]
+        param_cartelNo = response.request.body.decode(encoding="utf-8").split("cartelNo=",1)[1].split("&",1)[0]
         sections = response.css('div#cont02')
         for section in sections:
             section_header = section.css('h3').get();
@@ -54,11 +59,14 @@ class ProceduresExpedientsDetails(scrapy.Spider):
                         columns = row.css('td')
                         row_onclick_attr = columns[0].css('a::attr(onclick)').getall()[0];
                         yield {
-                            'num_solicitud_contratacion_v1' : '|'.join(columns[0].css('::text').getall()).strip().replace('\r\n', '').replace('\n', '').replace('\t', '')
-                            ,'num_solicitud_contratacion_v2' : row_onclick_attr.replace("fn_contractReq('", '').replace("');return false;", '')
-                            ,'descripcion' : '|'.join(columns[1].css('::text').getall()).strip().replace('\r\n', '').replace('\n', '').replace('\t', '')
-                            ,'identificacion_institucion' : '|'.join(columns[2].css('::text').getall()).strip().replace('\r\n', '').replace('\n', '').replace('\t', '')
-                            ,'fecha_solicitud_contratacion' : '|'.join(columns[3].css('::text').getall()).strip().replace('\r\n', '').replace('\n', '').replace('\t', '')
+                            'param_sch_instNo' : param_sch_instNo
+                            ,'param_reqNo' : param_reqNo
+                            ,'param_cartelNo' : param_cartelNo
+                            ,'num_solicitud_contratacion_v1' : '|'.join(columns[0].css('::text').getall()).strip().replace('\r\n', '').replace('\n', '').replace('\t', '').replace('"', '')
+                            ,'num_solicitud_contratacion_v2' : row_onclick_attr.replace("fn_contractReq('", '').replace("');return false;", '').replace('"', '')
+                            ,'descripcion' : '|'.join(columns[1].css('::text').getall()).strip().replace('\r\n', '').replace('\n', '').replace('\t', '').replace('"', '')
+                            ,'identificacion_institucion' : '|'.join(columns[2].css('::text').getall()).strip().replace('\r\n', '').replace('\n', '').replace('\t', '').replace('"', '')
+                            ,'fecha_solicitud_contratacion' : '|'.join(columns[3].css('::text').getall()).strip().replace('\r\n', '').replace('\n', '').replace('\t', '').replace('"', '')
                         }
 """     from scrapy.shell import inspect_response
         inspect_response(response, self)
