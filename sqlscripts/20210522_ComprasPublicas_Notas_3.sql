@@ -46,6 +46,10 @@ WHERE CodigoPostalDistrito_DesdeInferencias LIKE '%[A-Z][a-z]%'
   --FROM [cleandata].[sicop_procedure_contract]
 
 
+  
+
+
+
 
   SELECT * FROM [cleandata].[sicop_procedure] 
 
