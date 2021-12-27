@@ -51,3 +51,43 @@ WHERE estado_contrato = 'Solicitud de modificación de contrato notificado'
 
 
 11612
+
+;WITH cte AS (
+	SELECT 
+	 procedure_num
+	 --, num_contrato
+	FROM [cleandata].[sicop_procedure_expedient_contract] 
+	WHERE estado_contrato = 'Solicitud de modificación de contrato notificado'
+	GROUP BY procedure_num
+	--HAVING count(*) > 1
+)
+SELECT 
+	  *
+	FROM [cleandata].[sicop_procedure_expedient_contract] AS ec
+	WHERE ec.procedure_num IN (SELECT procedure_num FROM cte)
+	--AND ec.num_contrato IN (SELECT num_contrato FROM cte)
+ORDER BY procedure_num, num_contrato
+
+
+
+;WITH cte AS (
+	SELECT 
+	 procedure_num, num_contrato
+	FROM [cleandata].[sicop_procedure_expedient_contract] 
+	WHERE estado_contrato = 'Solicitud de modificación de contrato notificado'
+	GROUP BY procedure_num, num_contrato
+	HAVING count(*) > 1
+)
+SELECT 
+	  *
+	FROM [cleandata].[sicop_procedure_expedient_contract] AS ec
+	WHERE ec.procedure_num IN (SELECT procedure_num FROM cte)
+	AND ec.num_contrato IN (SELECT num_contrato FROM cte)
+ORDER BY procedure_num, num_contrato
+
+
+SELECT 
+ count(distinct num_contrato) AS numContrato,
+ count(*) AS num
+FROM [cleandata].[sicop_procedure_expedient_contract] 
+WHERE estado_contrato = 'Solicitud de modificación de contrato notificado'

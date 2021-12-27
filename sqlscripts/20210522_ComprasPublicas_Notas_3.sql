@@ -36,14 +36,14 @@ WHERE CodigoPostalDistrito_DesdeInferencias LIKE '%[A-Z][a-z]%'
 
 
 
-  --  SELECT DISTINCT
-	 --  [Número_procedimiento]	
-  --    ,[Institución]			
-  --    ,[Tipo_modalidad]		
-  --    ,[Tipo_Procedimiento]	
-  --    ,[Descripción]				
-	 -- INTO [cleandata].[sicop_procedure] 
-  --FROM [cleandata].[sicop_procedure_contract]
+    SELECT DISTINCT
+	   [Número_procedimiento]	
+      ,[Institución]			
+      ,[Tipo_modalidad]		
+      ,[Tipo_Procedimiento]	
+      ,[Descripción]				
+	  INTO [cleandata].[sicop_procedure] 
+  FROM [cleandata].[sicop_procedure_contract]
 
 
   

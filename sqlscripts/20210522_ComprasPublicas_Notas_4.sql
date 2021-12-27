@@ -82,7 +82,7 @@ SELECT
   USE [ComprasPublicas]
 GO
 
-SELECT
+SELECT 
 	   CAST([Número_procedimiento]		 AS VARCHAR(MAX) ) AS [Número_procedimiento]
       ,CAST([Número_contrato]			 AS VARCHAR(MAX) ) AS [Número_contrato]
       ,CAST([Cédula_adjudicatario]		 AS VARCHAR(MAX) ) AS [Cédula_adjudicatario]
@@ -99,6 +99,10 @@ SELECT
       ,CAST([Vigencia_contrato]			 AS VARCHAR(MAX) ) AS [Vigencia_contrato]
       ,CAST([Clasificación_objeto]		 AS VARCHAR(MAX) ) AS [Clasificación_objeto]
       ,CAST([Calc_Monto_Redondeado]		 AS VARCHAR(MAX) ) AS [Calc_Monto_Redondeado]
+	  ,CAST(	ContHasLocalProv		AS VARCHAR(MAX) ) AS ContHasLocalProv
+	  ,CAST(	ContHasSemiLocalProv		AS VARCHAR(MAX) ) AS ContHasSemiLocalProv
+
+
   FROM [cleandata].[sicop_procedure_contract]
 GO
 
@@ -154,6 +158,13 @@ SELECT
       ,CAST([Tipo_modalidad]		AS VARCHAR(MAX) ) AS [Tipo_modalidad]
       ,CAST([Tipo_Procedimiento]	AS VARCHAR(MAX) ) AS [Tipo_Procedimiento]
       ,CAST([Descripción]			AS VARCHAR(MAX) ) AS [Descripción]	
+
+	  ,CAST([min_fecha_solicitud_contratacion]			AS VARCHAR(MAX) ) AS [min_fecha_solicitud_contratacion]
+	  ,CAST([max_fecha_solicitud_contratacion]			AS VARCHAR(MAX) ) AS [max_fecha_solicitud_contratacion]
+	  ,CAST([diff_sec_min_max_fecha_solicitud_contratacion]			AS VARCHAR(MAX) ) AS [diff_sec_min_max_fecha_solicitud_contratacion]
+	  ,CAST(	[ProcHasLocalContGtE1]		AS VARCHAR(MAX) ) AS [ProcHasLocalContGtE1]
+	  ,CAST(	[ProcHasSemiLocalContGtE1]		AS VARCHAR(MAX) ) AS [ProcHasSemiLocalContGtE1]
+
 FROM [cleandata].[sicop_procedure]
   --123 881
   -- 89 950
@@ -173,6 +184,8 @@ SELECT
       ,CAST([max_opening_act_date]				 AS VARCHAR(MAX) ) AS [max_opening_act_date]
       ,CAST([min_opening_act_publication_date]	 AS VARCHAR(MAX) ) AS [min_opening_act_publication_date]
       ,CAST([min_opening_act_date]				 AS VARCHAR(MAX) ) AS [min_opening_act_date]
+	  ,CAST([PartFromLocalProv]				 AS VARCHAR(MAX) ) AS [PartFromLocalProv]
+	  ,CAST([PartFromSemiLocalProv]				 AS VARCHAR(MAX) ) AS [PartFromSemiLocalProv]
   FROM [cleandata].[sicop_procedure_participations_per_provider]
 GO
 
