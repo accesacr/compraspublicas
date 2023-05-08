@@ -14,14 +14,38 @@ class ProvidersPerWgscategorySpider(scrapy.Spider):
     allowed_domains = ['www.sicop.go.cr']
     #global custom_count
     #custom_count = 0
+
+#   -------------------------------------------------
+#   CONFIGURATION VARIABLES
+#   -------------------------------------------------
+
+    log_root_dir =  '/usr/src/app/sicop_project/sicop_project/spider_logs'
+    log_filename =  'providers_per_wgscategory_level4_spider_2023_test_v5.log'
+    log_level = 'INFO'
+
+#   -------------------------------------------------
+
     custom_settings = {
-        'LOG_FILE': '/usr/src/app/sicop_project/sicop_project/spider_logs/providers_per_wgscategory_level4_spider.log',
-        'LOG_LEVEL': 'INFO'
-    }
+        'LOG_FILE': log_root_dir + '/' + log_filename,
+        'LOG_LEVEL': log_level
+     }
+
+
+
     def start_requests(self):
         import csv
+
+        #   -------------------------------------------------
+        #   CONFIGURATION VARIABLES
+        #   -------------------------------------------------
+
+        input_root_dir =  '/usr/src/app/sicop_project/sicop_project/crawled_data'
+        input_filename = 'wgscategories_level4_onlyid_noheader_test_v5.csv'
+        
+
+        #   -------------------------------------------------
         category_id_list = []
-        with open('/usr/src/app/sicop_project/sicop_project/crawled_data/wgscategories_level4_onlyid_noheader.csv','rt', encoding='utf-16') as csvfile: 
+        with open(input_root_dir + '/' + input_filename,'rt', encoding='utf-16') as csvfile: 
             reader = csv.reader(csvfile, delimiter=',', quotechar='"') 
             for row in reader:
                 #print(', '.join(row))

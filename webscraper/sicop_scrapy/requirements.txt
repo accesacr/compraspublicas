@@ -1,1 +1,5 @@
 Scrapy==2.5.0
+pyopenssl==22.0.0
+cryptography==38.0.4
+pandas
+pandasql

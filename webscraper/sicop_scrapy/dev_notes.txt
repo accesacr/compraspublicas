@@ -42,6 +42,111 @@ scrapy crawl procedures_expedients -O sicop_project/crawled_data/procedures_expe
 
 
 scrapy crawl procedures_expedients_details_contracts -O sicop_project/crawled_data/procedures_expedients_details_contracts_test.csv
+
+
+-------------------------------------------
+--- 2023 STARTED HERE--- 
+-------------------------------------------
+
+--------------------------------------------------------------------------------------
+-- ERROR WHEN RUNNING SCRAPER
+--------------------------------------------------------------------------------------
+-> ERROR FROM CLI WHILE RUNNING SCRAPY-> module 'OpenSSL.SSL' has no attribute 'SSLv3_METHOD'
+-> https://stackoverflow.com/questions/73859249/attributeerror-module-openssl-ssl-has-no-attribute-sslv3-method
+
+
+-> First to solve the problem the next commands were executed inside the docker running container 
+# ImportError: cannot import name 'SSLv3_METHOD' from 'OpenSSL.SSL'
+pip3 install pyopenssl==22.0.0
+
+# AttributeError: module 'lib' has no attribute 'OpenSSL_add_all_algorithms'
+pip3 install cryptography==38.0.4
+
+-> After that, the above library versions and other new libraries were added to the requirements.txt file, so that the right libraries and versions are installed next time a docker container is created
+
+
+--------------------------------------------------------------------------------------
+-- INITIAL RUN OF SCRAPERS
+--------------------------------------------------------------------------------------
+scrapy crawl procedures_per_wgscategory -O sicop_project/crawled_data/procedures_per_wgscategory_2023_test_v2.csv 
+scrapy crawl procedures_per_wgscategory -O sicop_project/crawled_data/procedures_per_wgscategory_2023_test_v3_2021to2024.csv 
+scrapy crawl procedures_per_wgscategory -O sicop_project/crawled_data/procedures_per_wgscategory_2023_test_v4_2016to2024.csv  
+
+
+--------------------------------------------------------------------------------------
+-- FIRST FULL RUN TRY
+--------------------------------------------------------------------------------------
+
+-> all categories are extracted
+scrapy crawl wgscategories_alllevels -O sicop_project/crawled_data/wgscategories_alllevels_2023_test_v5.csv
+
+-> a file that contains only categories of level4 is created to be used as input for next crawlers
+python wsgcategories_extract_level4_from_alllevels_crawled.py
+
+-> configured the crawler to get 6 years of info up to 2022-12-31 and ran crawler with next command
+scrapy crawl procedures_per_wgscategory -O sicop_project/crawled_data/procedures_per_wgscategory_2023_test_v5_2016to2022.csv
+
+-> configured the crawler to get 2 years of info from 2021-01-01 up to 2022-12-31 and ran crawler with next command
+scrapy crawl procedures_per_wgscategory -O sicop_project/crawled_data/procedures_per_wgscategory_2023_test_v5_2021to2022.csv
+
+
+
+#   -------------------------------------------------
+#   CONFIGURATION VARIABLES
+#   -------------------------------------------------
+
+    log_root_dir =  '/usr/src/app/sicop_project/sicop_project/spider_logs'
+    log_filename =  'procedures_per_wgscategory_level4_spider_2023_test_v5_2021to2022.log'
+    log_level = 'INFO'
+
+        input_root_dir =  '/usr/src/app/sicop_project/sicop_project/crawled_data'
+        input_filename = 'wgscategories_level4_onlyid_noheader_test_v5.csv'
+        input_start_date = '01/01/2021'
+        input_end_date = '01/01/2023'
+
+#   -------------------------------------------------
+
+-> configured the crawler to get 2 years of info from 2016-01-01 up to 2020-12-31 and ran crawler with next command
+scrapy crawl procedures_per_wgscategory -O sicop_project/crawled_data/procedures_per_wgscategory_2023_test_v5_2016to2020.csv
+
+
+#   -------------------------------------------------
+#   CONFIGURATION VARIABLES
+#   -------------------------------------------------
+
+    log_root_dir =  '/usr/src/app/sicop_project/sicop_project/spider_logs'
+    log_filename =  'procedures_per_wgscategory_level4_spider_2023_test_v5_2016to2020.log'
+    log_level = 'INFO'
+
+        input_root_dir =  '/usr/src/app/sicop_project/sicop_project/crawled_data'
+        input_filename = 'wgscategories_level4_onlyid_noheader_test_v5.csv'
+        input_start_date = '01/01/2016'
+        input_end_date = '01/01/2021'
+
+#   -------------------------------------------------
+
+
+-> configured the crawler to get latest providers based on new list of categories
+scrapy crawl providers_per_wgscategory -O sicop_project/crawled_data/providers_per_wgscategory_2023_test_v5.csv
+
+
+--------------------------------------------------------------------------------------
+-- FOR OPTIMIZATION OF PERFORMANCE ACCORDING TO COMPUTER RESOURCES AVAILABLE
+--------------------------------------------------------------------------------------
+
+-> When running the above crawlers during 2023 I noticed the container RAM seemed to be peaking at 4GB even when the computer had 16GB, so I made a small research oo docker and the docker settings directed me to the below reference
+
+https://learn.microsoft.com/en-us/windows/wsl/wsl-config#configure-global-options-with-wslconfig
+
+https://learn.microsoft.com/en-us/windows/wsl/install#check-which-version-of-wsl-you-are-running
+
+
+-> Based on above links I made this sample file when trying out the above
+example.wslconfig
+
+
+scrapy crawl providers_per_wgscategory -O sicop_project/crawled_data/providers_per_wgscategory_test.csv
+
  ---------------
 
 

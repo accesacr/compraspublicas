@@ -12,3 +12,9 @@ docker exec -i -t sicop_container /bin/bash
 To run in WINDOWS
 ---------------------------------------------
 docker run -i -t --name sicop_container -v C:/Users/"Lidier Campos"/Documents/CodeRepositories/ComprasPublicas/compraspublicas/webscraper/sicop_scrapy:/usr/src/app/ sicop_image /bin/bash
+
+---------------------------------------------
+To run commands in WINDOWS after it is running
+---------------------------------------------
+
+docker exec -it sicop_container sh

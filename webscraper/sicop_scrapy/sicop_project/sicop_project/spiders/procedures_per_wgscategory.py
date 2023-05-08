@@ -13,14 +13,36 @@ class ProceduresPerWgscategorySpider(scrapy.Spider):
     name = 'procedures_per_wgscategory'
     allowed_domains = ['www.sicop.go.cr']
 
-    #custom_settings = {
-    #    'LOG_FILE': '/usr/src/app/sicop_project/sicop_project/spider_logs/procedures_per_wgscategory_level4_spider.log',
-    #    'LOG_LEVEL': 'INFO'
-    # }
+
+#   -------------------------------------------------
+#   CONFIGURATION VARIABLES
+#   -------------------------------------------------
+
+    log_root_dir =  '/usr/src/app/sicop_project/sicop_project/spider_logs'
+    log_filename =  'procedures_per_wgscategory_level4_spider_2023_test_v5_2016to2020.log'
+    log_level = 'INFO'
+
+#   -------------------------------------------------
+
+    custom_settings = {
+        'LOG_FILE': log_root_dir + '/' + log_filename,
+        'LOG_LEVEL': log_level
+     }
+
     def start_requests(self):
         import csv
+#   -------------------------------------------------
+#   CONFIGURATION VARIABLES
+#   -------------------------------------------------
+
+        input_root_dir =  '/usr/src/app/sicop_project/sicop_project/crawled_data'
+        input_filename = 'wgscategories_level4_onlyid_noheader_test_v5.csv'
+        input_start_date = '01/01/2016'
+        input_end_date = '01/01/2021'
+
+#   -------------------------------------------------
         category_id_list = []
-        with open('/usr/src/app/sicop_project/sicop_project/crawled_data/wgscategories_level4_onlyid_noheader.csv', 'rt', encoding='utf-16') as csvfile:
+        with open(input_root_dir + '/' + input_filename, 'rt', encoding='utf-16') as csvfile:
             reader = csv.reader(csvfile, delimiter=',', quotechar='"')
             for row in reader:
                 #print(', '.join(row))
@@ -30,7 +52,7 @@ class ProceduresPerWgscategorySpider(scrapy.Spider):
         for category_id in category_id_list:
             # logging.info(category_id)
             frmdata = {
-                "page_size": "1000000", "cateId": category_id, "sch_cont_ymd1": "01/01/2016", "sch_cont_ymd2": "01/01/2021", "cateIdKey": "cateId.value"
+                "page_size": "1000000", "cateId": category_id, "sch_cont_ymd1": input_start_date, "sch_cont_ymd2": input_end_date, "cateIdKey": "cateId.value"
             }
             url = "https://www.sicop.go.cr/moduloPcont/pcont/ctract/es/CE_CEJ_ESQ001.jsp"
             yield FormRequest(url, callback=self.parse, formdata=frmdata, headers={
